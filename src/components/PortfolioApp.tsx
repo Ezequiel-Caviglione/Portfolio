@@ -25,31 +25,31 @@ export default function PortfolioApp() {
       <div className="min-h-screen bg-background text-foreground">
         {/* Navigation */}
         <Navigation onOpenContact={openContactModal} />
-        
+
         {/* Main Content */}
         <main>
           {/* Hero Section */}
           <HeroSection />
-          
+
           {/* Timeline Section */}
           <TimelineSection />
-          
+
           {/* GitHub Projects Section */}
           <GitHubProjectsSection />
-          
+
           {/* Contact Section */}
           <ContactSection onOpenModal={openContactModal} />
         </main>
-        
+
         {/* Contact Modal */}
         <ContactModal isOpen={isContactModalOpen} onClose={closeContactModal} />
-        
+
         {/* Footer */}
         <footer className="bg-muted/30 border-t border-border py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
               <p className="text-muted-foreground font-open-sans">
-                © 2024 Portfolio. Hecho con ❤️ usando Astro, React y Framer Motion.
+                © 2025 Isaí Ezequiel García Caviglione. Hecho con ❤️ usando Astro, React y Framer Motion.
               </p>
             </div>
           </div>

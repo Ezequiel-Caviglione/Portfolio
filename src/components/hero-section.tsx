@@ -61,7 +61,7 @@ export function HeroSection() {
           className="mb-6"
         >
           <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20">
-            ¡Hola! Soy desarrollador Full Stack
+            ¡Hola! Soy Isaí Ezequiel García Caviglione
           </span>
         </motion.div>
 
@@ -96,8 +96,7 @@ export function HeroSection() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed"
         >
-          Transformo ideas en aplicaciones web modernas y funcionales, combinando diseño elegante con código limpio y
-          eficiente.
+          Ingeniero en Sistemas de Información, especializado en desarrollo Full Stack, transformando ideas en aplicaciones web modernas con todo tipo de tecnologías.
         </motion.p>
 
         {/* Skills Icons */}

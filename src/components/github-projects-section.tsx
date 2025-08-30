@@ -272,7 +272,7 @@ export function GitHubProjectsSection() {
             className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 text-primary-foreground transform hover:scale-105 transition-all duration-300 hover:shadow-lg"
           >
             <a
-              href="https://github.com/octocat"
+              href="https://github.com/Ezequiel-Caviglione"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2"
