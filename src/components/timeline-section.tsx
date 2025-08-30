@@ -6,15 +6,10 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { useRef, useState } from "react"
+import { useTranslation } from "@/i18n/useTranslation"
 
 interface TimelineItem {
   id: string
-  title: string
-  company: string
-  location: string
-  period: string
-  description: string
-  achievements: string[]
   technologies: string[]
   type: "work" | "education" | "project"
 }
@@ -22,34 +17,11 @@ interface TimelineItem {
 const timelineData: TimelineItem[] = [
   {
     id: "1",
-    title: "Full Stack Developer",
-    company: "Livepanel",
-    location: "Bahía Blanca, Argentina",
-    period: "2025 - Presente",
-    description:
-      "Práctica Profesional Supervisada en Livepanel donde desarrollé tareas de frontend con Angular y backend con Python usando Django.",
-    achievements: [
-      "Desarrollo de interfaces de usuario modernas con Angular.",
-      "Implementación de APIs REST con Django y Python.",
-      "Integración de frontend y backend para aplicaciones web completas.",
-      "Aplicación de mejores prácticas en desarrollo Full Stack.",
-    ],
     technologies: ["Angular", "Python", "Django", "TypeScript"],
     type: "work",
   },
   {
     id: "2",
-    title: "Ingeniería en Sistemas de Información",
-    company: "Universidad Nacional del Sur",
-    location: "Bahía Blanca, Argentina",
-    period: "2020 - 2025",
-    description: "Carrera de Ingeniería en Sistemas de Información con enfoque en todo el ciclo de vida del software desde la planificación hasta el desarrollo y mantenimiento.",
-    achievements: [
-      "28 de 34 materias aprobadas al día de la fecha.",
-      "Promedio académico de 8 puntos.",
-      "Notas destacadas en materias puramente relacionadas a software.",
-      "Participación en proyectos académicos de desarrollo de software.",
-    ],
     technologies: ["Java", "Python", "C", "SQL", "Git", "NextJS", "Testing", "Metodologías ágiles", "Análisis de requerimientos", "Planificación de proyectos"],
     type: "education",
   },
@@ -59,6 +31,7 @@ function TimelineItemComponent({ item, index }: { item: TimelineItem; index: num
   const [isExpanded, setIsExpanded] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const { t } = useTranslation()
 
   const getTypeColor = (type: string) => {
     switch (type) {
@@ -74,16 +47,22 @@ function TimelineItemComponent({ item, index }: { item: TimelineItem; index: num
   }
 
   const getTypeIcon = (type: string) => {
-    switch (type) {
-      case "work":
-        return "💼"
-      case "education":
-        return "🎓"
-      case "project":
-        return "🚀"
-      default:
-        return "💼"
-    }
+    return t(`timeline.types.${type}`, "💼")
+  }
+
+  // Get translated data for this timeline item
+  const itemData = {
+    title: t(`timelineData.${item.id}.title`, ""),
+    company: t(`timelineData.${item.id}.company`, ""),
+    location: t(`timelineData.${item.id}.location`, ""),
+    period: t(`timelineData.${item.id}.period`, ""),
+    description: t(`timelineData.${item.id}.description`, ""),
+    achievements: [
+      t(`timelineData.${item.id}.achievements.0`, ""),
+      t(`timelineData.${item.id}.achievements.1`, ""),
+      t(`timelineData.${item.id}.achievements.2`, ""),
+      t(`timelineData.${item.id}.achievements.3`, ""),
+    ].filter(achievement => achievement !== "")
   }
 
   return (
@@ -121,30 +100,30 @@ function TimelineItemComponent({ item, index }: { item: TimelineItem; index: num
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-xl md:text-2xl">{getTypeIcon(item.type)}</span>
-                  <h3 className="text-lg md:text-xl font-bold text-foreground font-montserrat">{item.title}</h3>
+                  <h3 className="text-lg md:text-xl font-bold text-foreground font-montserrat">{itemData.title}</h3>
                 </div>
-                <p className="text-base md:text-lg font-semibold text-primary mb-1">{item.company}</p>
+                <p className="text-base md:text-lg font-semibold text-primary mb-1">{itemData.company}</p>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-muted-foreground">
                   <div className="flex items-center gap-1">
                     <Calendar className="w-4 h-4" />
-                    <span>{item.period}</span>
+                    <span>{itemData.period}</span>
                   </div>
                   <div className="flex items-center gap-1">
                     <MapPin className="w-4 h-4" />
-                    <span>{item.location}</span>
+                    <span>{itemData.location}</span>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Description */}
-            <p className="text-foreground mb-4 font-open-sans leading-relaxed">{item.description}</p>
+            <p className="text-foreground mb-4 font-open-sans leading-relaxed">{itemData.description}</p>
 
             {/* Technologies */}
             <div className="flex flex-wrap gap-2 mb-4">
               {item.technologies.map((tech) => (
                 <Badge key={tech} variant="secondary" className="text-xs">
-                  {tech}
+                  {t(`technologies.${tech}`, tech)}
                 </Badge>
               ))}
             </div>
@@ -156,7 +135,7 @@ function TimelineItemComponent({ item, index }: { item: TimelineItem; index: num
               onClick={() => setIsExpanded(!isExpanded)}
               className="flex items-center gap-2 text-primary hover:text-primary/80 hover:bg-primary/10 transform hover:scale-105 transition-all duration-300"
             >
-              {isExpanded ? "Ver menos" : "Ver logros"}
+              {isExpanded ? t("timeline.viewLess") : t("timeline.viewMore")}
               {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
             </Button>
 
@@ -168,9 +147,9 @@ function TimelineItemComponent({ item, index }: { item: TimelineItem; index: num
               className="overflow-hidden"
             >
               <div className="pt-4 border-t border-border mt-4">
-                <h4 className="font-semibold text-foreground mb-3 font-montserrat">Principales logros:</h4>
+                <h4 className="font-semibold text-foreground mb-3 font-montserrat">{t("timeline.achievements")}</h4>
                 <ul className="space-y-2">
-                  {item.achievements.map((achievement, i) => (
+                  {itemData.achievements.map((achievement, i) => (
                     <motion.li
                       key={i}
                       initial={{ opacity: 0, x: -20 }}
@@ -195,6 +174,7 @@ function TimelineItemComponent({ item, index }: { item: TimelineItem; index: num
 export function TimelineSection() {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-200px" })
+  const { t } = useTranslation()
 
   return (
     <section ref={ref} id="timeline" className="py-20 bg-muted/30">
@@ -206,10 +186,9 @@ export function TimelineSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 font-montserrat">Mi Trayectoria</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 font-montserrat">{t("timeline.title")}</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-open-sans leading-relaxed">
-            Un recorrido por mi experiencia profesional y académica, destacando los proyectos y logros más
-            significativos
+            {t("timeline.subtitle")}
           </p>
         </motion.div>
 
@@ -234,7 +213,7 @@ export function TimelineSection() {
             onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
             className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 text-primary-foreground transform hover:scale-105 transition-all duration-300 hover:shadow-lg"
           >
-            Ver mis proyectos
+            {t("timeline.viewProjects")}
           </Button>
         </motion.div>
       </div>

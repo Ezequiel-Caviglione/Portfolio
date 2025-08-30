@@ -1,12 +1,15 @@
 import { motion, useInView } from "framer-motion"
-import { Github, Star, GitFork, Eye, Calendar, Globe } from "lucide-react"
+import { Star, GitFork, Eye, Calendar, Globe } from "lucide-react"
+import { FaGithub } from "react-icons/fa"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { useGitHubRepos, type GitHubRepo } from "@/hooks/use-github-repos"
+import { useTranslation } from "@/i18n/useTranslation"
 import { useRef } from "react"
 
 function ProjectCard({ repo, index }: { repo: GitHubRepo; index: number }) {
+  const { t, language } = useTranslation()
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
@@ -25,7 +28,8 @@ function ProjectCard({ repo, index }: { repo: GitHubRepo; index: number }) {
   }
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("es-ES", {
+    const locale = language === 'es' ? 'es-ES' : 'en-US'
+    return new Date(dateString).toLocaleDateString(locale, {
       year: "numeric",
       month: "short",
       day: "numeric",
@@ -46,11 +50,11 @@ function ProjectCard({ repo, index }: { repo: GitHubRepo; index: number }) {
           <div className="flex items-start justify-between">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-2">
-                <Github className="w-4 h-4 md:w-5 md:h-5 text-primary flex-shrink-0" />
+                <FaGithub className="w-4 h-4 md:w-5 md:h-5 text-primary flex-shrink-0" />
                 <h3 className="text-base md:text-lg font-bold text-foreground font-montserrat truncate">{repo.name}</h3>
               </div>
               <p className="text-xs md:text-sm text-muted-foreground line-clamp-2 font-open-sans leading-relaxed">
-                {repo.description || "Sin descripción disponible"}
+                {repo.description || t('projects.noDescription')}
               </p>
             </div>
           </div>
@@ -101,7 +105,7 @@ function ProjectCard({ repo, index }: { repo: GitHubRepo; index: number }) {
           {/* Last Updated */}
           <div className="flex items-center gap-1 text-xs text-muted-foreground mb-3 md:mb-4">
             <Calendar className="w-3 h-3" />
-            <span>Actualizado {formatDate(repo.updated_at)}</span>
+            <span>{t('projects.lastUpdated')} {formatDate(repo.updated_at)}</span>
           </div>
 
           {/* Actions */}
@@ -113,8 +117,8 @@ function ProjectCard({ repo, index }: { repo: GitHubRepo; index: number }) {
               className="flex-1 hover:bg-primary/10 hover:border-primary/50 bg-transparent transform hover:scale-105 transition-all duration-300 text-xs md:text-sm"
             >
               <a href={repo.html_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 md:gap-2">
-                <Github className="w-3 h-3 md:w-4 md:h-4" />
-                Código
+                <FaGithub className="w-3 h-3 md:w-4 md:h-4" />
+                {t('projects.viewCode')}
               </a>
             </Button>
             {repo.homepage && (
@@ -126,7 +130,7 @@ function ProjectCard({ repo, index }: { repo: GitHubRepo; index: number }) {
               >
                 <a href={repo.homepage} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 md:gap-2">
                   <Globe className="w-3 h-3 md:w-4 md:h-4" />
-                  Demo
+                  {t('projects.viewProject')}
                 </a>
               </Button>
             )}
@@ -177,6 +181,7 @@ function LoadingSkeleton() {
 }
 
 export function GitHubProjectsSection() {
+  const { t } = useTranslation()
   const { repos, loading, error, refetch } = useGitHubRepos("Ezequiel-Caviglione", 6)
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-200px" })
@@ -191,10 +196,9 @@ export function GitHubProjectsSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 font-montserrat">Proyectos Destacados</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 font-montserrat">{t('projects.title')}</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-open-sans leading-relaxed">
-            Una selección de mis proyectos más recientes en GitHub, con estadísticas en tiempo real y tecnologías
-            utilizadas
+            {t('projects.subtitle')}
           </p>
         </motion.div>
 
@@ -209,13 +213,13 @@ export function GitHubProjectsSection() {
             <>
               <div className="text-center p-3 md:p-4 bg-card rounded-lg border border-border">
                 <div className="text-xl md:text-2xl font-bold text-primary font-montserrat">{repos.length}</div>
-                <div className="text-xs md:text-sm text-muted-foreground">Proyectos Activos</div>
+                <div className="text-xs md:text-sm text-muted-foreground">{t('projects.stats.activeProjects')}</div>
               </div>
               <div className="text-center p-3 md:p-4 bg-card rounded-lg border border-border">
                 <div className="text-xl md:text-2xl font-bold text-primary font-montserrat">
                   {new Set(repos.map((repo) => repo.language).filter(Boolean)).size}
                 </div>
-                <div className="text-xs md:text-sm text-muted-foreground">Tecnologías</div>
+                <div className="text-xs md:text-sm text-muted-foreground">{t('projects.stats.technologies')}</div>
               </div>
               <div className="text-center p-3 md:p-4 bg-card rounded-lg border border-border">
                 <div className="text-xl md:text-2xl font-bold text-primary font-montserrat">
@@ -225,13 +229,13 @@ export function GitHubProjectsSection() {
                     ).length
                   }
                 </div>
-                <div className="text-xs md:text-sm text-muted-foreground">Actualizados (30d)</div>
+                <div className="text-xs md:text-sm text-muted-foreground">{t('projects.stats.recentUpdates')}</div>
               </div>
               <div className="text-center p-3 md:p-4 bg-card rounded-lg border border-border">
                 <div className="text-xl md:text-2xl font-bold text-primary font-montserrat">
                   {repos.reduce((acc, repo) => acc + repo.stargazers_count, 0)}
                 </div>
-                <div className="text-xs md:text-sm text-muted-foreground">Total Stars</div>
+                <div className="text-xs md:text-sm text-muted-foreground">{t('projects.stats.totalStars')}</div>
               </div>
             </>
           )}
@@ -240,9 +244,9 @@ export function GitHubProjectsSection() {
         {/* Error State */}
         {error && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-12">
-            <p className="text-muted-foreground mb-4">Error al cargar los repositorios: {error}</p>
+            <p className="text-muted-foreground mb-4">{t('projects.error')} {error}</p>
             <Button onClick={refetch} variant="outline">
-              Reintentar
+              {t('projects.retry')}
             </Button>
           </motion.div>
         )}
@@ -277,8 +281,8 @@ export function GitHubProjectsSection() {
               rel="noopener noreferrer"
               className="flex items-center gap-2"
             >
-              <Github className="w-5 h-5" />
-              Ver todos mis proyectos
+              <FaGithub className="w-5 h-5" />
+              {t('projects.viewAllProjects')}
             </a>
           </Button>
         </motion.div>

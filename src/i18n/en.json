@@ -34,13 +34,35 @@
   },
   "timeline": {
     "title": "My Journey",
+    "subtitle": "A journey through my professional and academic experience, highlighting the most significant projects and achievements",
     "experience": "Experience",
-    "education": "Education"
+    "education": "Education",
+    "viewMore": "View achievements",
+    "viewLess": "View less",
+    "achievements": "Key achievements:",
+    "viewProjects": "View my projects",
+    "types": {
+      "work": "💼",
+      "education": "🎓",
+      "project": "🚀"
+    }
   },
   "projects": {
-    "title": "GitHub Projects",
-    "viewProject": "View Project",
-    "viewCode": "View Code"
+    "title": "Featured Projects",
+    "subtitle": "A selection of my most recent GitHub projects, with real-time statistics and technologies used",
+    "viewProject": "Demo",
+    "viewCode": "Code",
+    "stats": {
+      "activeProjects": "Active Projects",
+      "technologies": "Technologies",
+      "recentUpdates": "Updated (30d)",
+      "totalStars": "Total Stars"
+    },
+    "noDescription": "No description available",
+    "lastUpdated": "Updated",
+    "error": "Error loading repositories:",
+    "retry": "Retry",
+    "viewAllProjects": "View all my projects"
   },
   "contact": {
     "title": "Contact",
@@ -54,5 +76,39 @@
   },
   "footer": {
     "madeWith": "Made with ❤️ using Astro and React"
+  },
+  "timelineData": {
+    "1": {
+      "title": "Full Stack Developer",
+      "company": "Livepanel",
+      "location": "Bahía Blanca, Argentina",
+      "period": "2025 - Present",
+      "description": "Supervised Professional Practice at Livepanel where I developed frontend tasks with Angular and backend with Python using Django.",
+      "achievements": [
+        "Development of modern user interfaces with Angular.",
+        "Implementation of REST APIs with Django and Python.",
+        "Integration of frontend and backend for complete web applications.",
+        "Application of best practices in Full Stack development."
+      ]
+    },
+    "2": {
+      "title": "Information Systems Engineering",
+      "company": "Universidad Nacional del Sur",
+      "location": "Bahía Blanca, Argentina",
+      "period": "2020 - 2025",
+      "description": "Information Systems Engineering degree with focus on the entire software lifecycle from planning to development and maintenance.",
+      "achievements": [
+        "28 out of 34 subjects approved to date.",
+        "Academic average of 8 points.",
+        "Outstanding grades in subjects purely related to software.",
+        "Participation in academic software development projects."
+      ]
+    }
+  },
+  "technologies": {
+    "Testing": "Testing",
+    "Metodologías ágiles": "Agile Methodologies",
+    "Análisis de requerimientos": "Requirements Analysis",
+    "Planificación de proyectos": "Project Planning"
   }
 }

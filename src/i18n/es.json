@@ -34,13 +34,35 @@
   },
   "timeline": {
     "title": "Mi Trayectoria",
+    "subtitle": "Un recorrido por mi experiencia profesional y académica, destacando los proyectos y logros más significativos",
     "experience": "Experiencia",
-    "education": "Educación"
+    "education": "Educación",
+    "viewMore": "Ver logros",
+    "viewLess": "Ver menos",
+    "achievements": "Principales logros:",
+    "viewProjects": "Ver mis proyectos",
+    "types": {
+      "work": "💼",
+      "education": "🎓",
+      "project": "🚀"
+    }
   },
   "projects": {
-    "title": "Proyectos de GitHub",
-    "viewProject": "Ver Proyecto",
-    "viewCode": "Ver Código"
+    "title": "Proyectos Destacados",
+    "subtitle": "Una selección de mis proyectos más recientes en GitHub, con estadísticas en tiempo real y tecnologías utilizadas",
+    "viewProject": "Demo",
+    "viewCode": "Código",
+    "stats": {
+      "activeProjects": "Proyectos Activos",
+      "technologies": "Tecnologías",
+      "recentUpdates": "Actualizados (30d)",
+      "totalStars": "Total Stars"
+    },
+    "noDescription": "Sin descripción disponible",
+    "lastUpdated": "Actualizado",
+    "error": "Error al cargar los repositorios:",
+    "retry": "Reintentar",
+    "viewAllProjects": "Ver todos mis proyectos"
   },
   "contact": {
     "title": "Contacto",
@@ -54,5 +76,39 @@
   },
   "footer": {
     "madeWith": "Hecho con ❤️ usando Astro y React"
+  },
+  "timelineData": {
+    "1": {
+      "title": "Full Stack Developer",
+      "company": "Livepanel",
+      "location": "Bahía Blanca, Argentina",
+      "period": "2025 - Presente",
+      "description": "Práctica Profesional Supervisada en Livepanel donde desarrollé tareas de frontend con Angular y backend con Python usando Django.",
+      "achievements": [
+        "Desarrollo de interfaces de usuario modernas con Angular.",
+        "Implementación de APIs REST con Django y Python.",
+        "Integración de frontend y backend para aplicaciones web completas.",
+        "Aplicación de mejores prácticas en desarrollo Full Stack."
+      ]
+    },
+    "2": {
+      "title": "Ingeniería en Sistemas de Información",
+      "company": "Universidad Nacional del Sur",
+      "location": "Bahía Blanca, Argentina",
+      "period": "2020 - 2025",
+      "description": "Carrera de Ingeniería en Sistemas de Información con enfoque en todo el ciclo de vida del software desde la planificación hasta el desarrollo y mantenimiento.",
+      "achievements": [
+        "28 de 34 materias aprobadas al día de la fecha.",
+        "Promedio académico de 8 puntos.",
+        "Notas destacadas en materias puramente relacionadas a software.",
+        "Participación en proyectos académicos de desarrollo de software."
+      ]
+    }
+  },
+  "technologies": {
+    "Testing": "Testing",
+    "Metodologías ágiles": "Metodologías ágiles",
+    "Análisis de requerimientos": "Análisis de requerimientos",
+    "Planificación de proyectos": "Planificación de proyectos"
   }
 }

@@ -15,8 +15,18 @@ export interface Translations {
   };
   timeline: {
     title: string;
+    subtitle: string;
     experience: string;
     education: string;
+    viewMore: string;
+    viewLess: string;
+    achievements: string;
+    viewProjects: string;
+    types: {
+      work: string;
+      education: string;
+      project: string;
+    };
   };
   projects: {
     title: string;
@@ -35,6 +45,19 @@ export interface Translations {
   };
   footer: {
     madeWith: string;
+  };
+  timelineData: {
+    [key: string]: {
+      title: string;
+      company: string;
+      location: string;
+      period: string;
+      description: string;
+      achievements: string[];
+    };
+  };
+  technologies: {
+    [key: string]: string;
   };
 }
 
