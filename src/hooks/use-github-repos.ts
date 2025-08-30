@@ -54,7 +54,6 @@ export function useGitHubRepos(username = "Ezequiel-Caviglione", limit = 6): Use
 
       // Filter out forks and sort by stars + recent activity
       const filteredRepos = data
-        .filter((repo) => !repo.full_name.includes("/") || repo.stargazers_count > 0)
         .sort((a, b) => {
           // Prioritize repos with more stars and recent updates
           const scoreA = a.stargazers_count * 2 + new Date(a.updated_at).getTime() / 1000000000
