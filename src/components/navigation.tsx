@@ -1,18 +1,33 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
+import { Menu, X } from "lucide-react"
+import { useState } from "react"
 import { ThemeToggle } from "./theme-toggle"
+import { Button } from "@/components/ui/button"
 
 interface NavigationProps {
   onOpenContact?: () => void
 }
 
 export function Navigation({ onOpenContact }: NavigationProps) {
+  const [isOpen, setIsOpen] = useState(false)
+  
   const navItems = [
     { name: "Inicio", href: "#hero" },
     { name: "Experiencia", href: "#timeline" },
     { name: "Proyectos", href: "#projects" },
   ]
+
+  const handleNavClick = (href: string) => {
+    setIsOpen(false)
+    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" })
+  }
+
+  const handleContactClick = () => {
+    setIsOpen(false)
+    onOpenContact?.()
+  }
 
   return (
     <motion.nav
@@ -27,11 +42,12 @@ export function Navigation({ onOpenContact }: NavigationProps) {
             Portfolio
           </motion.div>
 
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item, index) => (
-              <motion.a
+              <motion.button
                 key={item.name}
-                href={item.href}
+                onClick={() => handleNavClick(item.href)}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 + 0.3 }}
@@ -39,7 +55,7 @@ export function Navigation({ onOpenContact }: NavigationProps) {
                 className="text-foreground hover:text-primary transition-colors font-medium"
               >
                 {item.name}
-              </motion.a>
+              </motion.button>
             ))}
             <motion.button
               initial={{ opacity: 0, y: -20 }}
@@ -53,8 +69,56 @@ export function Navigation({ onOpenContact }: NavigationProps) {
             </motion.button>
           </div>
 
-          <ThemeToggle />
+          {/* Mobile Menu Button & Theme Toggle */}
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </Button>
+          </div>
         </div>
+
+        {/* Mobile Navigation Menu */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="md:hidden border-t border-border bg-background/95 backdrop-blur-md"
+            >
+              <div className="px-4 py-4 space-y-3">
+                {navItems.map((item, index) => (
+                  <motion.button
+                    key={item.name}
+                    onClick={() => handleNavClick(item.href)}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="block w-full text-left py-2 px-3 text-foreground hover:text-primary hover:bg-primary/10 rounded-md transition-colors font-medium"
+                  >
+                    {item.name}
+                  </motion.button>
+                ))}
+                <motion.button
+                  onClick={handleContactClick}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: navItems.length * 0.1 }}
+                  className="block w-full text-left py-2 px-3 text-foreground hover:text-primary hover:bg-primary/10 rounded-md transition-colors font-medium"
+                >
+                  Contacto
+                </motion.button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </motion.nav>
   )

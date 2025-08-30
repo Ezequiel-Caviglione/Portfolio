@@ -42,23 +42,23 @@ function ProjectCard({ repo, index }: { repo: GitHubRepo; index: number }) {
       className="h-full"
     >
       <Card className="h-full border-2 border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
-        <CardHeader className="pb-4">
+        <CardHeader className="pb-3 md:pb-4">
           <div className="flex items-start justify-between">
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-2">
-                <Github className="w-5 h-5 text-primary" />
-                <h3 className="text-lg font-bold text-foreground font-montserrat truncate">{repo.name}</h3>
+                <Github className="w-4 h-4 md:w-5 md:h-5 text-primary flex-shrink-0" />
+                <h3 className="text-base md:text-lg font-bold text-foreground font-montserrat truncate">{repo.name}</h3>
               </div>
-              <p className="text-sm text-muted-foreground line-clamp-2 font-open-sans leading-relaxed">
+              <p className="text-xs md:text-sm text-muted-foreground line-clamp-2 font-open-sans leading-relaxed">
                 {repo.description || "Sin descripción disponible"}
               </p>
             </div>
           </div>
         </CardHeader>
 
-        <CardContent className="pt-0">
+        <CardContent className="pt-0 p-3 md:p-6">
           {/* Language and Topics */}
-          <div className="flex flex-wrap gap-2 mb-4">
+          <div className="flex flex-wrap gap-1.5 md:gap-2 mb-3 md:mb-4">
             {repo.language && (
               <Badge
                 variant="outline"
@@ -83,23 +83,23 @@ function ProjectCard({ repo, index }: { repo: GitHubRepo; index: number }) {
           </div>
 
           {/* Stats */}
-          <div className="flex items-center gap-4 mb-4 text-sm text-muted-foreground">
+          <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4 text-xs md:text-sm text-muted-foreground">
             <div className="flex items-center gap-1">
-              <Star className="w-4 h-4" />
+              <Star className="w-3 h-3 md:w-4 md:h-4" />
               <span>{repo.stargazers_count}</span>
             </div>
             <div className="flex items-center gap-1">
-              <GitFork className="w-4 h-4" />
+              <GitFork className="w-3 h-3 md:w-4 md:h-4" />
               <span>{repo.forks_count}</span>
             </div>
             <div className="flex items-center gap-1">
-              <Eye className="w-4 h-4" />
+              <Eye className="w-3 h-3 md:w-4 md:h-4" />
               <span>{repo.watchers_count}</span>
             </div>
           </div>
 
           {/* Last Updated */}
-          <div className="flex items-center gap-1 text-xs text-muted-foreground mb-4">
+          <div className="flex items-center gap-1 text-xs text-muted-foreground mb-3 md:mb-4">
             <Calendar className="w-3 h-3" />
             <span>Actualizado {formatDate(repo.updated_at)}</span>
           </div>
@@ -110,10 +110,10 @@ function ProjectCard({ repo, index }: { repo: GitHubRepo; index: number }) {
               variant="outline"
               size="sm"
               asChild
-              className="flex-1 hover:bg-primary/10 hover:border-primary/50 bg-transparent transform hover:scale-105 transition-all duration-300"
+              className="flex-1 hover:bg-primary/10 hover:border-primary/50 bg-transparent transform hover:scale-105 transition-all duration-300 text-xs md:text-sm"
             >
-              <a href={repo.html_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                <Github className="w-4 h-4" />
+              <a href={repo.html_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 md:gap-2">
+                <Github className="w-3 h-3 md:w-4 md:h-4" />
                 Código
               </a>
             </Button>
@@ -122,10 +122,10 @@ function ProjectCard({ repo, index }: { repo: GitHubRepo; index: number }) {
                 variant="outline"
                 size="sm"
                 asChild
-                className="flex-1 hover:bg-secondary/10 hover:border-secondary/50 bg-transparent transform hover:scale-105 transition-all duration-300"
+                className="flex-1 hover:bg-secondary/10 hover:border-secondary/50 bg-transparent transform hover:scale-105 transition-all duration-300 text-xs md:text-sm"
               >
-                <a href={repo.homepage} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                  <Globe className="w-4 h-4" />
+                <a href={repo.homepage} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 md:gap-2">
+                  <Globe className="w-3 h-3 md:w-4 md:h-4" />
                   Demo
                 </a>
               </Button>
@@ -203,35 +203,35 @@ export function GitHubProjectsSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12"
+          className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-12"
         >
           {!loading && (
             <>
-              <div className="text-center p-4 bg-card rounded-lg border border-border">
-                <div className="text-2xl font-bold text-primary font-montserrat">{repos.length}</div>
-                <div className="text-sm text-muted-foreground">Proyectos Activos</div>
+              <div className="text-center p-3 md:p-4 bg-card rounded-lg border border-border">
+                <div className="text-xl md:text-2xl font-bold text-primary font-montserrat">{repos.length}</div>
+                <div className="text-xs md:text-sm text-muted-foreground">Proyectos Activos</div>
               </div>
-              <div className="text-center p-4 bg-card rounded-lg border border-border">
-                <div className="text-2xl font-bold text-primary font-montserrat">
+              <div className="text-center p-3 md:p-4 bg-card rounded-lg border border-border">
+                <div className="text-xl md:text-2xl font-bold text-primary font-montserrat">
                   {new Set(repos.map((repo) => repo.language).filter(Boolean)).size}
                 </div>
-                <div className="text-sm text-muted-foreground">Tecnologías</div>
+                <div className="text-xs md:text-sm text-muted-foreground">Tecnologías</div>
               </div>
-              <div className="text-center p-4 bg-card rounded-lg border border-border">
-                <div className="text-2xl font-bold text-primary font-montserrat">
+              <div className="text-center p-3 md:p-4 bg-card rounded-lg border border-border">
+                <div className="text-xl md:text-2xl font-bold text-primary font-montserrat">
                   {
                     repos.filter(
                       (repo) => repo.updated_at > new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
                     ).length
                   }
                 </div>
-                <div className="text-sm text-muted-foreground">Actualizados (30d)</div>
+                <div className="text-xs md:text-sm text-muted-foreground">Actualizados (30d)</div>
               </div>
-              <div className="text-center p-4 bg-card rounded-lg border border-border">
-                <div className="text-2xl font-bold text-primary font-montserrat">
+              <div className="text-center p-3 md:p-4 bg-card rounded-lg border border-border">
+                <div className="text-xl md:text-2xl font-bold text-primary font-montserrat">
                   {repos.reduce((acc, repo) => acc + repo.stargazers_count, 0)}
                 </div>
-                <div className="text-sm text-muted-foreground">Total Stars</div>
+                <div className="text-xs md:text-sm text-muted-foreground">Total Stars</div>
               </div>
             </>
           )}
@@ -252,7 +252,7 @@ export function GitHubProjectsSection() {
 
         {/* Projects Grid */}
         {!loading && !error && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-12">
             {repos.map((repo, index) => (
               <ProjectCard key={repo.id} repo={repo} index={index} />
             ))}

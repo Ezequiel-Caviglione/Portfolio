@@ -70,7 +70,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-5xl md:text-7xl lg:text-8xl font-bold text-foreground mb-6 leading-tight"
+          className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-foreground mb-6 leading-tight"
         >
           <span className="block">Creando</span>
           <motion.span
@@ -94,7 +94,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed"
+          className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed px-4"
         >
           Ingeniero en Sistemas de Información, especializado en desarrollo Full Stack, transformando ideas en aplicaciones web modernas con todo tipo de tecnologías.
         </motion.p>
@@ -104,7 +104,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex justify-center gap-8 mb-12"
+          className="flex justify-center gap-4 sm:gap-8 mb-12 px-4"
         >
           {[
             { icon: Code, label: "Desarrollo" },
@@ -114,10 +114,10 @@ export function HeroSection() {
             <motion.div
               key={skill.label}
               whileHover={{ scale: 1.1, y: -5 }}
-              className="flex flex-col items-center gap-2 p-4 rounded-lg bg-card border border-border hover:border-primary/50 transition-colors w-32"
+              className="flex flex-col items-center gap-2 p-3 sm:p-4 rounded-lg bg-card border border-border hover:border-primary/50 transition-colors w-24 sm:w-32"
             >
-              <skill.icon className="w-8 h-8 text-primary" />
-              <span className="text-sm font-medium text-card-foreground text-center">{skill.label}</span>
+              <skill.icon className="w-6 h-6 sm:w-8 sm:h-8 text-primary" />
+              <span className="text-xs sm:text-sm font-medium text-card-foreground text-center">{skill.label}</span>
             </motion.div>
           ))}
         </motion.div>
@@ -127,12 +127,12 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
+          className="flex flex-col sm:flex-row gap-4 justify-center mb-16 px-4"
         >
           <Button
             size="lg"
             onClick={scrollToTimeline}
-            className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 text-primary-foreground transform hover:scale-105 transition-all duration-300 hover:shadow-lg"
+            className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 bg-primary hover:bg-primary/90 text-primary-foreground transform hover:scale-105 transition-all duration-300 hover:shadow-lg"
           >
             Ver mi experiencia
           </Button>
@@ -140,7 +140,7 @@ export function HeroSection() {
             variant="outline"
             size="lg"
             onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
-            className="text-lg px-8 py-6 border-primary/50 hover:bg-primary/10 hover:border-primary transform hover:scale-105 transition-all duration-300 hover:shadow-lg"
+            className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 border-primary/50 hover:bg-primary/10 hover:border-primary transform hover:scale-105 transition-all duration-300 hover:shadow-lg"
           >
             Explorar proyectos
           </Button>

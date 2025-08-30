@@ -89,24 +89,42 @@ function TimelineItemComponent({ item, index }: { item: TimelineItem; index: num
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+      initial={{ opacity: 0, x: -50 }}
+      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
       transition={{ duration: 0.6, delay: index * 0.2 }}
-      className={`flex items-center gap-8 ${index % 2 === 0 ? "flex-row" : "flex-row-reverse"}`}
+      className="flex items-start gap-4 md:gap-8"
     >
+      {/* Timeline Dot */}
+      <div className="relative flex flex-col items-center flex-shrink-0">
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={isInView ? { scale: 1 } : { scale: 0 }}
+          transition={{ duration: 0.4, delay: index * 0.2 + 0.3 }}
+          className={`w-4 h-4 md:w-6 md:h-6 rounded-full ${getTypeColor(item.type)} border-2 md:border-4 border-background shadow-lg z-10`}
+        />
+        {index < timelineData.length - 1 && (
+          <motion.div
+            initial={{ height: 0 }}
+            animate={isInView ? { height: "100%" } : { height: 0 }}
+            transition={{ duration: 0.8, delay: index * 0.2 + 0.5 }}
+            className="w-0.5 bg-border absolute top-4 md:top-6 h-full"
+          />
+        )}
+      </div>
+
       {/* Content Card */}
       <div className="flex-1">
         <Card className="border-2 border-border hover:border-primary/50 transition-colors duration-300">
-          <CardContent className="p-6">
+          <CardContent className="p-4 md:p-6">
             {/* Header */}
             <div className="flex items-start justify-between mb-4">
-              <div>
+              <div className="flex-1">
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-2xl">{getTypeIcon(item.type)}</span>
-                  <h3 className="text-xl font-bold text-foreground font-montserrat">{item.title}</h3>
+                  <span className="text-xl md:text-2xl">{getTypeIcon(item.type)}</span>
+                  <h3 className="text-lg md:text-xl font-bold text-foreground font-montserrat">{item.title}</h3>
                 </div>
-                <p className="text-lg font-semibold text-primary mb-1">{item.company}</p>
-                <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                <p className="text-base md:text-lg font-semibold text-primary mb-1">{item.company}</p>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-muted-foreground">
                   <div className="flex items-center gap-1">
                     <Calendar className="w-4 h-4" />
                     <span>{item.period}</span>
@@ -170,27 +188,6 @@ function TimelineItemComponent({ item, index }: { item: TimelineItem; index: num
           </CardContent>
         </Card>
       </div>
-
-      {/* Timeline Dot */}
-      <div className="relative flex flex-col items-center">
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={isInView ? { scale: 1 } : { scale: 0 }}
-          transition={{ duration: 0.4, delay: index * 0.2 + 0.3 }}
-          className={`w-6 h-6 rounded-full ${getTypeColor(item.type)} border-4 border-background shadow-lg z-10`}
-        />
-        {index < timelineData.length - 1 && (
-          <motion.div
-            initial={{ height: 0 }}
-            animate={isInView ? { height: "100%" } : { height: 0 }}
-            transition={{ duration: 0.8, delay: index * 0.2 + 0.5 }}
-            className="w-0.5 bg-border absolute top-6 h-full"
-          />
-        )}
-      </div>
-
-      {/* Spacer for alternating layout */}
-      <div className="flex-1" />
     </motion.div>
   )
 }
