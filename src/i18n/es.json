@@ -1,0 +1,43 @@
+{
+  "navigation": {
+    "home": "Inicio",
+    "about": "Acerca",
+    "experience": "Experiencia",
+    "projects": "Proyectos",
+    "contact": "Contacto",
+    "portfolio": "Portfolio",
+    "switchLanguage": "Cambiar idioma",
+    "currentLanguage": "Idioma actual: Español"
+  },
+  "hero": {
+    "greeting": "¡Hola! Soy",
+    "name": "Isaí Ezequiel García Caviglione",
+    "title": "Desarrollador Full Stack",
+    "description": "Apasionado por crear experiencias digitales excepcionales con tecnologías modernas. Especializado en desarrollo web full-stack con React, Node.js y bases de datos.",
+    "downloadCV": "Descargar CV",
+    "contactMe": "Contáctame"
+  },
+  "timeline": {
+    "title": "Mi Trayectoria",
+    "experience": "Experiencia",
+    "education": "Educación"
+  },
+  "projects": {
+    "title": "Proyectos de GitHub",
+    "viewProject": "Ver Proyecto",
+    "viewCode": "Ver Código"
+  },
+  "contact": {
+    "title": "Contacto",
+    "subtitle": "¿Tienes un proyecto en mente? ¡Hablemos!",
+    "name": "Nombre",
+    "email": "Correo Electrónico",
+    "message": "Mensaje",
+    "send": "Enviar Mensaje",
+    "success": "¡Mensaje enviado exitosamente!",
+    "error": "Error al enviar el mensaje. Por favor, inténtalo de nuevo."
+  },
+  "footer": {
+    "madeWith": "Hecho con ❤️ usando Astro y React"
+  }
+}

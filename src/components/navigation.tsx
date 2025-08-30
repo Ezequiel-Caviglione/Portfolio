@@ -4,7 +4,9 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X } from "lucide-react"
 import { useState } from "react"
 import { ThemeToggle } from "./theme-toggle"
+import { LanguageToggle } from "./language-toggle"
 import { Button } from "@/components/ui/button"
+import { useTranslation } from "@/i18n/useTranslation"
 
 interface NavigationProps {
   onOpenContact?: () => void
@@ -12,22 +14,25 @@ interface NavigationProps {
 
 export function Navigation({ onOpenContact }: NavigationProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const { t } = useTranslation()
   
   const navItems = [
-    { name: "Inicio", href: "#hero" },
-    { name: "Experiencia", href: "#timeline" },
-    { name: "Proyectos", href: "#projects" },
+    { name: t('navigation.home'), href: "#hero", action: 'navigate' },
+    { name: t('navigation.experience'), href: "#timeline", action: 'navigate' },
+    { name: t('navigation.projects'), href: "#projects", action: 'navigate' },
+    { name: t('navigation.contact'), href: "#contact", action: 'contact' },
   ]
 
-  const handleNavClick = (href: string) => {
+  const handleNavClick = (href: string, action: string) => {
     setIsOpen(false)
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" })
+    if (action === 'contact') {
+      onOpenContact?.()
+    } else {
+      document.querySelector(href)?.scrollIntoView({ behavior: "smooth" })
+    }
   }
 
-  const handleContactClick = () => {
-    setIsOpen(false)
-    onOpenContact?.()
-  }
+
 
   return (
     <motion.nav
@@ -39,7 +44,7 @@ export function Navigation({ onOpenContact }: NavigationProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <motion.div whileHover={{ scale: 1.05 }} className="font-bold text-xl text-primary">
-            Portfolio
+            {t('navigation.portfolio')}
           </motion.div>
 
           {/* Desktop Navigation */}
@@ -47,7 +52,7 @@ export function Navigation({ onOpenContact }: NavigationProps) {
             {navItems.map((item, index) => (
               <motion.button
                 key={item.name}
-                onClick={() => handleNavClick(item.href)}
+                onClick={() => handleNavClick(item.href, item.action)}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 + 0.3 }}
@@ -57,20 +62,11 @@ export function Navigation({ onOpenContact }: NavigationProps) {
                 {item.name}
               </motion.button>
             ))}
-            <motion.button
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: navItems.length * 0.1 + 0.3 }}
-              whileHover={{ scale: 1.05 }}
-              onClick={onOpenContact}
-              className="text-foreground hover:text-primary transition-colors font-medium"
-            >
-              Contacto
-            </motion.button>
           </div>
 
           {/* Mobile Menu Button & Theme Toggle */}
           <div className="flex items-center gap-2">
+            <LanguageToggle />
             <ThemeToggle />
             <Button
               variant="ghost"
@@ -97,7 +93,7 @@ export function Navigation({ onOpenContact }: NavigationProps) {
                 {navItems.map((item, index) => (
                   <motion.button
                     key={item.name}
-                    onClick={() => handleNavClick(item.href)}
+                    onClick={() => handleNavClick(item.href, item.action)}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
@@ -106,15 +102,6 @@ export function Navigation({ onOpenContact }: NavigationProps) {
                     {item.name}
                   </motion.button>
                 ))}
-                <motion.button
-                  onClick={handleContactClick}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: navItems.length * 0.1 }}
-                  className="block w-full text-left py-2 px-3 text-foreground hover:text-primary hover:bg-primary/10 rounded-md transition-colors font-medium"
-                >
-                  Contacto
-                </motion.button>
               </div>
             </motion.div>
           )}

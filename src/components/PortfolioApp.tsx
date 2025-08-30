@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { ThemeProvider } from "next-themes"
+import { LanguageProvider } from "../i18n/LanguageContext"
 import { Navigation } from "./navigation"
 import { HeroSection } from "./hero-section"
 import { TimelineSection } from "./timeline-section"
@@ -16,45 +17,47 @@ export default function PortfolioApp() {
   const closeContactModal = () => setIsContactModalOpen(false)
 
   return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange={false}
-    >
-      <div className="min-h-screen bg-background text-foreground">
-        {/* Navigation */}
-        <Navigation onOpenContact={openContactModal} />
+    <LanguageProvider>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange={false}
+      >
+        <div className="min-h-screen bg-background text-foreground">
+          {/* Navigation */}
+          <Navigation onOpenContact={openContactModal} />
 
-        {/* Main Content */}
-        <main>
-          {/* Hero Section */}
-          <HeroSection />
+          {/* Main Content */}
+          <main>
+            {/* Hero Section */}
+            <HeroSection />
 
-          {/* Timeline Section */}
-          <TimelineSection />
+            {/* Timeline Section */}
+            <TimelineSection />
 
-          {/* GitHub Projects Section */}
-          <GitHubProjectsSection />
+            {/* GitHub Projects Section */}
+            <GitHubProjectsSection />
 
-          {/* Contact Section */}
-          <ContactSection onOpenModal={openContactModal} />
-        </main>
+            {/* Contact Section */}
+            <ContactSection onOpenModal={openContactModal} />
+          </main>
 
-        {/* Contact Modal */}
-        <ContactModal isOpen={isContactModalOpen} onClose={closeContactModal} />
+          {/* Contact Modal */}
+          <ContactModal isOpen={isContactModalOpen} onClose={closeContactModal} />
 
-        {/* Footer */}
-        <footer className="bg-muted/30 border-t border-border py-8">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <p className="text-muted-foreground font-open-sans">
-                © 2025 Isaí Ezequiel García Caviglione. Hecho con ❤️ usando Astro, React y Framer Motion.
-              </p>
+          {/* Footer */}
+          <footer className="bg-muted/30 border-t border-border py-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center">
+                <p className="text-muted-foreground font-open-sans">
+                  © 2025 Isaí Ezequiel García Caviglione. Hecho con ❤️ usando Astro, React y Framer Motion.
+                </p>
+              </div>
             </div>
-          </div>
-        </footer>
-      </div>
-    </ThemeProvider>
+          </footer>
+        </div>
+      </ThemeProvider>
+    </LanguageProvider>
   )
 }
