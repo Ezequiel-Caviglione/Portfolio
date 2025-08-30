@@ -1,25 +1,45 @@
 ---
 import '../styles/global.css';
-// Component Imports
-import Button from '../components/Button.astro';
-
-// Full Astro Component Syntax:
-// https://docs.astro.build/basics/astro-components/
+import PortfolioApp from '../components/PortfolioApp.tsx';
 ---
 
-<html lang="en">
+<html lang="es">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro + TailwindCSS</title>
+		<title>Portfolio - Desarrollador Full Stack</title>
+		<meta name="description" content="Portfolio de desarrollador Full Stack especializado en React, Node.js y tecnologías modernas. Creando experiencias digitales innovadoras." />
+		
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://miportfolio.com/" />
+		<meta property="og:title" content="Portfolio - Desarrollador Full Stack" />
+		<meta property="og:description" content="Portfolio de desarrollador Full Stack especializado en React, Node.js y tecnologías modernas." />
+		
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content="https://miportfolio.com/" />
+		<meta property="twitter:title" content="Portfolio - Desarrollador Full Stack" />
+		<meta property="twitter:description" content="Portfolio de desarrollador Full Stack especializado en React, Node.js y tecnologías modernas." />
+		
+		<!-- Preload fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+		
+		<style>
+			.font-montserrat {
+				font-family: 'Montserrat', sans-serif;
+			}
+			.font-open-sans {
+				font-family: 'Open Sans', sans-serif;
+			}
+		</style>
 	</head>
 
 	<body>
-		<div class="grid place-items-center h-screen content-center">
-			<Button>Tailwind Button in Astro!</Button>
-			<a href="/markdown-page" class="p-4 underline">Markdown is also supported...</a>
-		</div>
+		<PortfolioApp client:load />
 	</body>
 </html>
