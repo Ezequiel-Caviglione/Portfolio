@@ -177,7 +177,7 @@ function LoadingSkeleton() {
 }
 
 export function GitHubProjectsSection() {
-  const { repos, loading, error, refetch } = useGitHubRepos("octocat", 6)
+  const { repos, loading, error, refetch } = useGitHubRepos("Ezequiel-Caviglione", 6)
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-200px" })
 

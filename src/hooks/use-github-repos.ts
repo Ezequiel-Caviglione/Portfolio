@@ -26,7 +26,7 @@ interface UseGitHubReposReturn {
   refetch: () => void
 }
 
-export function useGitHubRepos(username = "octocat", limit = 6): UseGitHubReposReturn {
+export function useGitHubRepos(username = "Ezequiel-Caviglione", limit = 6): UseGitHubReposReturn {
   const [repos, setRepos] = useState<GitHubRepo[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
