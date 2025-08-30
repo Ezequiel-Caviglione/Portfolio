@@ -50,7 +50,7 @@ const timelineData: TimelineItem[] = [
       "Notas destacadas en materias puramente relacionadas a software.",
       "Participación en proyectos académicos de desarrollo de software.",
     ],
-    technologies: ["Java", "Python", "C", "SQL", "Git", "NextJS", "Metodologías ágiles", "Análisis de requerimientos", "Planificación de proyectos"],
+    technologies: ["Java", "Python", "C", "SQL", "Git", "NextJS", "Testing", "Metodologías ágiles", "Análisis de requerimientos", "Planificación de proyectos"],
     type: "education",
   },
 ]
