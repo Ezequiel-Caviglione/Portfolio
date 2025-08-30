@@ -1,0 +1,304 @@
+"use client"
+
+import type React from "react"
+
+import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { X, Send, Mail, User, MessageSquare, CheckCircle, AlertCircle } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Label } from "@/components/ui/label"
+
+interface ContactModalProps {
+  isOpen: boolean
+  onClose: () => void
+}
+
+interface FormData {
+  name: string
+  email: string
+  subject: string
+  message: string
+}
+
+interface FormErrors {
+  name?: string
+  email?: string
+  subject?: string
+  message?: string
+}
+
+type FormStatus = "idle" | "loading" | "success" | "error"
+
+export function ContactModal({ isOpen, onClose }: ContactModalProps) {
+  const [formData, setFormData] = useState<FormData>({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  })
+  const [errors, setErrors] = useState<FormErrors>({})
+  const [status, setStatus] = useState<FormStatus>("idle")
+
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {}
+
+    if (!formData.name.trim()) {
+      newErrors.name = "El nombre es requerido"
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "El email es requerido"
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "El email no es válido"
+    }
+
+    if (!formData.subject.trim()) {
+      newErrors.subject = "El asunto es requerido"
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = "El mensaje es requerido"
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = "El mensaje debe tener al menos 10 caracteres"
+    }
+
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    if (!validateForm()) {
+      return
+    }
+
+    setStatus("loading")
+
+    try {
+      // Replace with your actual Formspree endpoint
+      const response = await fetch("https://formspree.io/f/your-form-id", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }),
+      })
+
+      if (response.ok) {
+        setStatus("success")
+        setFormData({ name: "", email: "", subject: "", message: "" })
+        setTimeout(() => {
+          setStatus("idle")
+          onClose()
+        }, 3000)
+      } else {
+        throw new Error("Error al enviar el mensaje")
+      }
+    } catch (error) {
+      setStatus("error")
+      setTimeout(() => setStatus("idle"), 3000)
+    }
+  }
+
+  const handleInputChange = (field: keyof FormData, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }))
+    if (errors[field]) {
+      setErrors((prev) => ({ ...prev, [field]: undefined }))
+    }
+  }
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
+          />
+
+          {/* Modal */}
+          <motion.div
+            initial={{ x: "100%", opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: "100%", opacity: 0 }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="fixed right-0 top-0 h-full w-full max-w-md bg-background border-l border-border shadow-2xl z-50 overflow-y-auto"
+          >
+            <div className="p-6">
+              {/* Header */}
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h2 className="text-2xl font-bold text-foreground font-montserrat">Contacto</h2>
+                  <p className="text-muted-foreground font-open-sans">¡Hablemos de tu próximo proyecto!</p>
+                </div>
+                <Button variant="ghost" size="icon" onClick={onClose} className="hover:bg-muted">
+                  <X className="w-5 h-5" />
+                </Button>
+              </div>
+
+              {/* Success State */}
+              {status === "success" && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg"
+                >
+                  <div className="flex items-center gap-2 text-green-700 dark:text-green-400">
+                    <CheckCircle className="w-5 h-5" />
+                    <span className="font-medium">¡Mensaje enviado!</span>
+                  </div>
+                  <p className="text-sm text-green-600 dark:text-green-300 mt-1">
+                    Gracias por contactarme. Te responderé pronto.
+                  </p>
+                </motion.div>
+              )}
+
+              {/* Error State */}
+              {status === "error" && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg"
+                >
+                  <div className="flex items-center gap-2 text-red-700 dark:text-red-400">
+                    <AlertCircle className="w-5 h-5" />
+                    <span className="font-medium">Error al enviar</span>
+                  </div>
+                  <p className="text-sm text-red-600 dark:text-red-300 mt-1">
+                    Hubo un problema. Por favor, inténtalo de nuevo.
+                  </p>
+                </motion.div>
+              )}
+
+              {/* Form */}
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Name Field */}
+                <div className="space-y-2">
+                  <Label htmlFor="name" className="flex items-center gap-2 font-medium">
+                    <User className="w-4 h-4 text-primary" />
+                    Nombre
+                  </Label>
+                  <Input
+                    id="name"
+                    type="text"
+                    value={formData.name}
+                    onChange={(e) => handleInputChange("name", e.target.value)}
+                    placeholder="Tu nombre completo"
+                    className={`transition-colors ${errors.name ? "border-red-500 focus:border-red-500" : ""}`}
+                    disabled={status === "loading"}
+                  />
+                  {errors.name && <p className="text-sm text-red-500">{errors.name}</p>}
+                </div>
+
+                {/* Email Field */}
+                <div className="space-y-2">
+                  <Label htmlFor="email" className="flex items-center gap-2 font-medium">
+                    <Mail className="w-4 h-4 text-primary" />
+                    Email
+                  </Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => handleInputChange("email", e.target.value)}
+                    placeholder="tu@email.com"
+                    className={`transition-colors ${errors.email ? "border-red-500 focus:border-red-500" : ""}`}
+                    disabled={status === "loading"}
+                  />
+                  {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
+                </div>
+
+                {/* Subject Field */}
+                <div className="space-y-2">
+                  <Label htmlFor="subject" className="flex items-center gap-2 font-medium">
+                    <MessageSquare className="w-4 h-4 text-primary" />
+                    Asunto
+                  </Label>
+                  <Input
+                    id="subject"
+                    type="text"
+                    value={formData.subject}
+                    onChange={(e) => handleInputChange("subject", e.target.value)}
+                    placeholder="¿En qué puedo ayudarte?"
+                    className={`transition-colors ${errors.subject ? "border-red-500 focus:border-red-500" : ""}`}
+                    disabled={status === "loading"}
+                  />
+                  {errors.subject && <p className="text-sm text-red-500">{errors.subject}</p>}
+                </div>
+
+                {/* Message Field */}
+                <div className="space-y-2">
+                  <Label htmlFor="message" className="font-medium">
+                    Mensaje
+                  </Label>
+                  <Textarea
+                    id="message"
+                    value={formData.message}
+                    onChange={(e) => handleInputChange("message", e.target.value)}
+                    placeholder="Cuéntame sobre tu proyecto, ideas o cualquier consulta que tengas..."
+                    rows={5}
+                    className={`transition-colors resize-none ${
+                      errors.message ? "border-red-500 focus:border-red-500" : ""
+                    }`}
+                    disabled={status === "loading"}
+                  />
+                  {errors.message && <p className="text-sm text-red-500">{errors.message}</p>}
+                  <p className="text-xs text-muted-foreground">{formData.message.length}/500 caracteres</p>
+                </div>
+
+                {/* Submit Button */}
+                <Button
+                  type="submit"
+                  disabled={status === "loading" || status === "success"}
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+                >
+                  {status === "loading" ? (
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+                      className="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full"
+                    />
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4 mr-2" />
+                      Enviar mensaje
+                    </>
+                  )}
+                </Button>
+              </form>
+
+              {/* Contact Info */}
+              <div className="mt-8 pt-6 border-t border-border">
+                <h3 className="font-semibold text-foreground mb-4 font-montserrat">Otras formas de contacto</h3>
+                <div className="space-y-3 text-sm">
+                  <div className="flex items-center gap-3 text-muted-foreground">
+                    <Mail className="w-4 h-4 text-primary" />
+                    <span>hola@miportfolio.com</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-muted-foreground">
+                    <svg className="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                    </svg>
+                    <span>linkedin.com/in/miportfolio</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  )
+}
