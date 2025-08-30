@@ -13,5 +13,7 @@ npm-debug.log*
 # Environment variables
 .env
 .env.production
+.env.example
 
 .kiro/
+*.md

@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
+import config from "@/lib/config"
 
 interface ContactModalProps {
   isOpen: boolean
@@ -78,8 +79,13 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     setStatus("loading")
 
     try {
-      // Replace with your actual Formspree endpoint
-      const response = await fetch("https://formspree.io/f/your-form-id", {
+      // Check if Formspree is properly configured
+      if (!config.formspree.isConfigured) {
+        console.warn("Formspree is not configured. Please set PUBLIC_FORMSPREE_FORM_ID in your environment variables.")
+        throw new Error("Formulario no configurado. Contacta al administrador.")
+      }
+
+      const response = await fetch(config.formspree.endpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -89,6 +95,9 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
           email: formData.email,
           subject: formData.subject,
           message: formData.message,
+          // Add additional metadata for better tracking
+          _replyto: formData.email,
+          _subject: `Nuevo mensaje de ${formData.name}: ${formData.subject}`,
         }),
       })
 
@@ -100,9 +109,12 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
           onClose()
         }, 3000)
       } else {
+        const errorData = await response.json().catch(() => ({}))
+        console.error("Formspree error:", errorData)
         throw new Error("Error al enviar el mensaje")
       }
     } catch (error) {
+      console.error("Contact form error:", error)
       setStatus("error")
       setTimeout(() => setStatus("idle"), 3000)
     }
@@ -178,6 +190,23 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   </div>
                   <p className="text-sm text-red-600 dark:text-red-300 mt-1">
                     Hubo un problema. Por favor, inténtalo de nuevo.
+                  </p>
+                </motion.div>
+              )}
+
+              {/* Development Warning */}
+              {!config.formspree.isConfigured && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mb-6 p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg"
+                >
+                  <div className="flex items-center gap-2 text-yellow-700 dark:text-yellow-400">
+                    <AlertCircle className="w-5 h-5" />
+                    <span className="font-medium">Configuración pendiente</span>
+                  </div>
+                  <p className="text-sm text-yellow-600 dark:text-yellow-300 mt-1">
+                    El formulario necesita configuración de Formspree para funcionar.
                   </p>
                 </motion.div>
               )}
