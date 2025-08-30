@@ -13,7 +13,22 @@
     "greeting": "¡Hola! Soy",
     "name": "Isaí Ezequiel García Caviglione",
     "title": "Desarrollador Full Stack",
-    "description": "Apasionado por crear experiencias digitales excepcionales con tecnologías modernas. Especializado en desarrollo web full-stack con React, Node.js y bases de datos.",
+    "mainTitle": {
+      "creating": "Creando",
+      "experiences": "Experiencias",
+      "digital": "Digitales"
+    },
+    "description": "Ingeniero en Sistemas de Información, especializado en desarrollo Full Stack, transformando ideas en aplicaciones web modernas con todo tipo de tecnologías.",
+    "skills": {
+      "development": "Desarrollo",
+      "design": "Diseño",
+      "performance": "Performance"
+    },
+    "buttons": {
+      "viewExperience": "Ver mi experiencia",
+      "exploreProjects": "Explorar proyectos"
+    },
+    "scrollIndicator": "Descubre más",
     "downloadCV": "Descargar CV",
     "contactMe": "Contáctame"
   },

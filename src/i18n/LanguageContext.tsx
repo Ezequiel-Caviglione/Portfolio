@@ -8,13 +8,16 @@ const STORAGE_KEY = 'portfolio-language';
 
 interface LanguageProviderProps {
   children: ReactNode;
+  initialLanguage?: Language;
 }
 
-export function LanguageProvider({ children }: LanguageProviderProps) {
-  const [language, setLanguageState] = useState<Language>(defaultLanguage);
+export function LanguageProvider({ children, initialLanguage }: LanguageProviderProps) {
+  const [language, setLanguageState] = useState<Language>(initialLanguage || defaultLanguage);
 
-  // Load language from localStorage on mount
+  // Load language from localStorage on mount (only if no initial language is provided)
   useEffect(() => {
+    if (initialLanguage) return; // Skip localStorage loading if initial language is provided
+    
     try {
       const savedLanguage = localStorage.getItem(STORAGE_KEY);
       if (savedLanguage && (savedLanguage === 'es' || savedLanguage === 'en')) {
@@ -24,7 +27,7 @@ export function LanguageProvider({ children }: LanguageProviderProps) {
       // localStorage might not be available (SSR, private browsing, etc.)
       console.warn('Failed to load language preference from localStorage:', error);
     }
-  }, []);
+  }, [initialLanguage]);
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);

@@ -2,8 +2,10 @@ import { motion, useScroll, useTransform } from "framer-motion"
 import { ChevronDown, Code, Palette, Zap } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useRef } from "react"
+import { useTranslation } from "@/i18n/useTranslation"
 
 export function HeroSection() {
+  const { t } = useTranslation()
   const ref = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -61,7 +63,7 @@ export function HeroSection() {
           className="mb-6"
         >
           <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20">
-            ¡Hola! Soy Isaí Ezequiel García Caviglione
+            {t('hero.greeting')} {t('hero.name')}
           </span>
         </motion.div>
 
@@ -72,7 +74,7 @@ export function HeroSection() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-foreground mb-6 leading-tight"
         >
-          <span className="block">Creando</span>
+          <span className="block">{t('hero.mainTitle.creating')}</span>
           <motion.span
             className="block bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
             animate={{
@@ -84,9 +86,9 @@ export function HeroSection() {
               ease: "linear",
             }}
           >
-            Experiencias
+            {t('hero.mainTitle.experiences')}
           </motion.span>
-          <span className="block">Digitales</span>
+          <span className="block">{t('hero.mainTitle.digital')}</span>
         </motion.h1>
 
         {/* Subtitle */}
@@ -96,7 +98,7 @@ export function HeroSection() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed px-4"
         >
-          Ingeniero en Sistemas de Información, especializado en desarrollo Full Stack, transformando ideas en aplicaciones web modernas con todo tipo de tecnologías.
+          {t('hero.description')}
         </motion.p>
 
         {/* Skills Icons */}
@@ -107,9 +109,9 @@ export function HeroSection() {
           className="flex justify-center gap-4 sm:gap-8 mb-12 px-4"
         >
           {[
-            { icon: Code, label: "Desarrollo" },
-            { icon: Palette, label: "Diseño" },
-            { icon: Zap, label: "Performance" },
+            { icon: Code, label: t('hero.skills.development') },
+            { icon: Palette, label: t('hero.skills.design') },
+            { icon: Zap, label: t('hero.skills.performance') },
           ].map((skill, index) => (
             <motion.div
               key={skill.label}
@@ -134,7 +136,7 @@ export function HeroSection() {
             onClick={scrollToTimeline}
             className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 bg-primary hover:bg-primary/90 text-primary-foreground transform hover:scale-105 transition-all duration-300 hover:shadow-lg"
           >
-            Ver mi experiencia
+            {t('hero.buttons.viewExperience')}
           </Button>
           <Button
             variant="outline"
@@ -142,7 +144,7 @@ export function HeroSection() {
             onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
             className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 border-primary/50 hover:bg-primary/10 hover:border-primary transform hover:scale-105 transition-all duration-300 hover:shadow-lg"
           >
-            Explorar proyectos
+            {t('hero.buttons.exploreProjects')}
           </Button>
         </motion.div>
 
@@ -154,7 +156,7 @@ export function HeroSection() {
           className="flex flex-col items-center cursor-pointer"
           onClick={scrollToTimeline}
         >
-          <span className="text-sm text-muted-foreground mb-2">Descubre más</span>
+          <span className="text-sm text-muted-foreground mb-2">{t('hero.scrollIndicator')}</span>
           <motion.div animate={{ y: [0, 10, 0] }} transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}>
             <ChevronDown className="w-6 h-6 text-primary" />
           </motion.div>
