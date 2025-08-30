@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import config from "@/lib/config"
+import { useTranslation } from "@/i18n/useTranslation"
 
 interface ContactModalProps {
   isOpen: boolean
@@ -41,28 +42,29 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
   })
   const [errors, setErrors] = useState<FormErrors>({})
   const [status, setStatus] = useState<FormStatus>("idle")
+  const { t } = useTranslation()
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {}
 
     if (!formData.name.trim()) {
-      newErrors.name = "El nombre es requerido"
+      newErrors.name = t('contact.modal.validation.nameRequired')
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = "El email es requerido"
+      newErrors.email = t('contact.modal.validation.emailRequired')
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "El email no es válido"
+      newErrors.email = t('contact.modal.validation.emailInvalid')
     }
 
     if (!formData.subject.trim()) {
-      newErrors.subject = "El asunto es requerido"
+      newErrors.subject = t('contact.modal.validation.subjectRequired')
     }
 
     if (!formData.message.trim()) {
-      newErrors.message = "El mensaje es requerido"
+      newErrors.message = t('contact.modal.validation.messageRequired')
     } else if (formData.message.trim().length < 10) {
-      newErrors.message = "El mensaje debe tener al menos 10 caracteres"
+      newErrors.message = t('contact.modal.validation.messageMinLength')
     }
 
     setErrors(newErrors)
@@ -82,7 +84,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
       // Check if Formspree is properly configured
       if (!config.formspree.isConfigured) {
         console.warn("Formspree is not configured. Please set PUBLIC_FORMSPREE_FORM_ID in your environment variables.")
-        throw new Error("Formulario no configurado. Contacta al administrador.")
+        throw new Error(t('contact.modal.status.configError'))
       }
 
       const response = await fetch(config.formspree.endpoint, {
@@ -111,7 +113,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
       } else {
         const errorData = await response.json().catch(() => ({}))
         console.error("Formspree error:", errorData)
-        throw new Error("Error al enviar el mensaje")
+        throw new Error(t('contact.modal.status.error.description'))
       }
     } catch (error) {
       console.error("Contact form error:", error)
@@ -152,8 +154,8 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
               {/* Header */}
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h2 className="text-2xl font-bold text-foreground font-montserrat">Contacto</h2>
-                  <p className="text-muted-foreground font-open-sans">¡Hablemos de tu próximo proyecto!</p>
+                  <h2 className="text-2xl font-bold text-foreground font-montserrat">{t('contact.modal.title')}</h2>
+                  <p className="text-muted-foreground font-open-sans">{t('contact.modal.subtitle')}</p>
                 </div>
                 <Button variant="ghost" size="icon" onClick={onClose} className="hover:bg-muted">
                   <X className="w-5 h-5" />
@@ -169,10 +171,10 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 >
                   <div className="flex items-center gap-2 text-green-700 dark:text-green-400">
                     <CheckCircle className="w-5 h-5" />
-                    <span className="font-medium">¡Mensaje enviado!</span>
+                    <span className="font-medium">{t('contact.modal.status.success.title')}</span>
                   </div>
                   <p className="text-sm text-green-600 dark:text-green-300 mt-1">
-                    Gracias por contactarme. Te responderé pronto.
+                    {t('contact.modal.status.success.description')}
                   </p>
                 </motion.div>
               )}
@@ -186,10 +188,10 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 >
                   <div className="flex items-center gap-2 text-red-700 dark:text-red-400">
                     <AlertCircle className="w-5 h-5" />
-                    <span className="font-medium">Error al enviar</span>
+                    <span className="font-medium">{t('contact.modal.status.error.title')}</span>
                   </div>
                   <p className="text-sm text-red-600 dark:text-red-300 mt-1">
-                    Hubo un problema. Por favor, inténtalo de nuevo.
+                    {t('contact.modal.status.error.description')}
                   </p>
                 </motion.div>
               )}
@@ -203,10 +205,10 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 >
                   <div className="flex items-center gap-2 text-yellow-700 dark:text-yellow-400">
                     <AlertCircle className="w-5 h-5" />
-                    <span className="font-medium">Configuración pendiente</span>
+                    <span className="font-medium">{t('contact.modal.status.configWarning.title')}</span>
                   </div>
                   <p className="text-sm text-yellow-600 dark:text-yellow-300 mt-1">
-                    El formulario necesita configuración de Formspree para funcionar.
+                    {t('contact.modal.status.configWarning.description')}
                   </p>
                 </motion.div>
               )}
@@ -217,14 +219,14 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 <div className="space-y-2">
                   <Label htmlFor="name" className="flex items-center gap-2 font-medium">
                     <User className="w-4 h-4 text-primary" />
-                    Nombre
+                    {t('contact.modal.form.name')}
                   </Label>
                   <Input
                     id="name"
                     type="text"
                     value={formData.name}
                     onChange={(e) => handleInputChange("name", e.target.value)}
-                    placeholder="Tu nombre completo"
+                    placeholder={t('contact.modal.form.namePlaceholder')}
                     className={`transition-colors ${errors.name ? "border-red-500 focus:border-red-500" : ""}`}
                     disabled={status === "loading"}
                   />
@@ -235,14 +237,14 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 <div className="space-y-2">
                   <Label htmlFor="email" className="flex items-center gap-2 font-medium">
                     <Mail className="w-4 h-4 text-primary" />
-                    Email
+                    {t('contact.modal.form.email')}
                   </Label>
                   <Input
                     id="email"
                     type="email"
                     value={formData.email}
                     onChange={(e) => handleInputChange("email", e.target.value)}
-                    placeholder="tu@email.com"
+                    placeholder={t('contact.modal.form.emailPlaceholder')}
                     className={`transition-colors ${errors.email ? "border-red-500 focus:border-red-500" : ""}`}
                     disabled={status === "loading"}
                   />
@@ -253,14 +255,14 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 <div className="space-y-2">
                   <Label htmlFor="subject" className="flex items-center gap-2 font-medium">
                     <MessageSquare className="w-4 h-4 text-primary" />
-                    Asunto
+                    {t('contact.modal.form.subject')}
                   </Label>
                   <Input
                     id="subject"
                     type="text"
                     value={formData.subject}
                     onChange={(e) => handleInputChange("subject", e.target.value)}
-                    placeholder="¿En qué puedo ayudarte?"
+                    placeholder={t('contact.modal.form.subjectPlaceholder')}
                     className={`transition-colors ${errors.subject ? "border-red-500 focus:border-red-500" : ""}`}
                     disabled={status === "loading"}
                   />
@@ -270,13 +272,13 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 {/* Message Field */}
                 <div className="space-y-2">
                   <Label htmlFor="message" className="font-medium">
-                    Mensaje
+                    {t('contact.modal.form.message')}
                   </Label>
                   <Textarea
                     id="message"
                     value={formData.message}
                     onChange={(e) => handleInputChange("message", e.target.value)}
-                    placeholder="Cuéntame sobre tu proyecto, ideas o cualquier consulta que tengas..."
+                    placeholder={t('contact.modal.form.messagePlaceholder')}
                     rows={5}
                     className={`transition-colors resize-none ${
                       errors.message ? "border-red-500 focus:border-red-500" : ""
@@ -284,7 +286,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                     disabled={status === "loading"}
                   />
                   {errors.message && <p className="text-sm text-red-500">{errors.message}</p>}
-                  <p className="text-xs text-muted-foreground">{formData.message.length}/500 caracteres</p>
+                  <p className="text-xs text-muted-foreground">{formData.message.length}/500 {t('contact.modal.form.charactersCount')}</p>
                 </div>
 
                 {/* Submit Button */}
@@ -302,7 +304,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   ) : (
                     <>
                       <Send className="w-4 h-4 mr-2" />
-                      Enviar mensaje
+                      {t('contact.modal.form.submit')}
                     </>
                   )}
                 </Button>
@@ -310,7 +312,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
               {/* Contact Info */}
               <div className="mt-8 pt-6 border-t border-border">
-                <h3 className="font-semibold text-foreground mb-4 font-montserrat">Otras formas de contacto</h3>
+                <h3 className="font-semibold text-foreground mb-4 font-montserrat">{t('contact.modal.otherContacts.title')}</h3>
                 <div className="space-y-3 text-sm">
                   <div className="flex items-center gap-3 text-muted-foreground">
                     <Mail className="w-4 h-4 text-primary" />

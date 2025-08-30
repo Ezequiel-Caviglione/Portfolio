@@ -67,6 +67,69 @@
   "contact": {
     "title": "Contacto",
     "subtitle": "¿Tienes un proyecto en mente? ¡Hablemos!",
+    "sectionTitle": "¿Tienes un proyecto en mente?",
+    "sectionSubtitle": "Estoy siempre abierto a discutir nuevas oportunidades, proyectos interesantes o simplemente charlar sobre tecnología",
+    "methods": {
+      "email": {
+        "title": "Email",
+        "description": "Respondo en menos de 24 horas"
+      },
+      "whatsapp": {
+        "title": "WhatsApp",
+        "description": "Para consultas rápidas"
+      },
+      "location": {
+        "title": "Ubicación",
+        "description": "Disponible para reuniones"
+      }
+    },
+    "cta": {
+      "title": "¡Trabajemos juntos!",
+      "description": "Si tienes una idea, un proyecto o simplemente quieres saludar, no dudes en contactarme. Me encanta colaborar en proyectos desafiantes y crear soluciones innovadoras.",
+      "button": "Enviar mensaje"
+    },
+    "modal": {
+      "title": "Contacto",
+      "subtitle": "¡Hablemos de tu próximo proyecto!",
+      "form": {
+        "name": "Nombre",
+        "namePlaceholder": "Tu nombre completo",
+        "email": "Email",
+        "emailPlaceholder": "tu@email.com",
+        "subject": "Asunto",
+        "subjectPlaceholder": "¿En qué puedo ayudarte?",
+        "message": "Mensaje",
+        "messagePlaceholder": "Cuéntame sobre tu proyecto, ideas o cualquier consulta que tengas...",
+        "charactersCount": "caracteres",
+        "submit": "Enviar mensaje"
+      },
+      "validation": {
+        "nameRequired": "El nombre es requerido",
+        "emailRequired": "El email es requerido",
+        "emailInvalid": "El email no es válido",
+        "subjectRequired": "El asunto es requerido",
+        "messageRequired": "El mensaje es requerido",
+        "messageMinLength": "El mensaje debe tener al menos 10 caracteres"
+      },
+      "status": {
+        "success": {
+          "title": "¡Mensaje enviado!",
+          "description": "Gracias por contactarme. Te responderé pronto."
+        },
+        "error": {
+          "title": "Error al enviar",
+          "description": "Hubo un problema. Por favor, inténtalo de nuevo."
+        },
+        "configError": "Formulario no configurado. Contacta al administrador.",
+        "configWarning": {
+          "title": "Configuración pendiente",
+          "description": "El formulario necesita configuración de Formspree para funcionar."
+        }
+      },
+      "otherContacts": {
+        "title": "Otras formas de contacto"
+      }
+    },
     "name": "Nombre",
     "email": "Correo Electrónico",
     "message": "Mensaje",
@@ -109,6 +172,15 @@
     "Testing": "Testing",
     "Metodologías ágiles": "Metodologías ágiles",
     "Análisis de requerimientos": "Análisis de requerimientos",
-    "Planificación de proyectos": "Planificación de proyectos"
+    "Planificación de proyectos": "Planificación de proyectos",
+    "Angular": "Angular",
+    "Python": "Python",
+    "Django": "Django",
+    "TypeScript": "TypeScript",
+    "Java": "Java",
+    "C": "C",
+    "SQL": "SQL",
+    "Git": "Git",
+    "NextJS": "NextJS"
   }
 }

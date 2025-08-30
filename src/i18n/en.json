@@ -67,6 +67,69 @@
   "contact": {
     "title": "Contact",
     "subtitle": "Have a project in mind? Let's talk!",
+    "sectionTitle": "Have a project in mind?",
+    "sectionSubtitle": "I'm always open to discussing new opportunities, interesting projects, or just chatting about technology",
+    "methods": {
+      "email": {
+        "title": "Email",
+        "description": "I respond within 24 hours"
+      },
+      "whatsapp": {
+        "title": "WhatsApp",
+        "description": "For quick inquiries"
+      },
+      "location": {
+        "title": "Location",
+        "description": "Available for meetings"
+      }
+    },
+    "cta": {
+      "title": "Let's work together!",
+      "description": "If you have an idea, a project, or just want to say hello, don't hesitate to contact me. I love collaborating on challenging projects and creating innovative solutions.",
+      "button": "Send message"
+    },
+    "modal": {
+      "title": "Contact",
+      "subtitle": "Let's talk about your next project!",
+      "form": {
+        "name": "Name",
+        "namePlaceholder": "Your full name",
+        "email": "Email",
+        "emailPlaceholder": "your@email.com",
+        "subject": "Subject",
+        "subjectPlaceholder": "How can I help you?",
+        "message": "Message",
+        "messagePlaceholder": "Tell me about your project, ideas, or any questions you have...",
+        "charactersCount": "characters",
+        "submit": "Send message"
+      },
+      "validation": {
+        "nameRequired": "Name is required",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Email is not valid",
+        "subjectRequired": "Subject is required",
+        "messageRequired": "Message is required",
+        "messageMinLength": "Message must be at least 10 characters long"
+      },
+      "status": {
+        "success": {
+          "title": "Message sent!",
+          "description": "Thank you for contacting me. I'll respond soon."
+        },
+        "error": {
+          "title": "Error sending",
+          "description": "There was a problem. Please try again."
+        },
+        "configError": "Form not configured. Contact the administrator.",
+        "configWarning": {
+          "title": "Configuration pending",
+          "description": "The form needs Formspree configuration to work."
+        }
+      },
+      "otherContacts": {
+        "title": "Other ways to contact"
+      }
+    },
     "name": "Name",
     "email": "Email",
     "message": "Message",
@@ -109,6 +172,15 @@
     "Testing": "Testing",
     "Metodologías ágiles": "Agile Methodologies",
     "Análisis de requerimientos": "Requirements Analysis",
-    "Planificación de proyectos": "Project Planning"
+    "Planificación de proyectos": "Project Planning",
+    "Angular": "Angular",
+    "Python": "Python",
+    "Django": "Django",
+    "TypeScript": "TypeScript",
+    "Java": "Java",
+    "C": "C",
+    "SQL": "SQL",
+    "Git": "Git",
+    "NextJS": "NextJS"
   }
 }
