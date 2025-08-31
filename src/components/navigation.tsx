@@ -42,12 +42,11 @@ export const Navigation = memo(function Navigation({ onOpenContact }: Navigation
       className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <motion.div whileHover={{ scale: 1.05 }} className="font-bold text-xl text-primary">
-            {t('navigation.portfolio')}
-          </motion.div>
+        <div className="flex items-center h-16">
+          {/* Left spacer for desktop */}
+          <div className="hidden md:flex flex-1"></div>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - Centered */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item, index) => (
               <motion.button
@@ -58,14 +57,16 @@ export const Navigation = memo(function Navigation({ onOpenContact }: Navigation
                 transition={{ delay: index * 0.1 + 0.3 }}
                 whileHover={{ scale: 1.05 }}
                 className="text-foreground hover:text-primary transition-colors font-medium"
+                aria-label={`${t('navigation.accessibility.navigateTo')} ${item.name}`}
+                title={`${t('navigation.accessibility.goTo')} ${item.name}`}
               >
                 {item.name}
               </motion.button>
             ))}
           </div>
 
-          {/* Mobile Menu Button & Theme Toggle */}
-          <div className="flex items-center gap-2">
+          {/* Right side - Theme Toggle & Mobile Menu */}
+          <div className="flex items-center gap-2 md:flex-1 md:justify-end ml-auto">
             <LanguageToggle />
             <ThemeToggle />
             <Button
@@ -73,6 +74,10 @@ export const Navigation = memo(function Navigation({ onOpenContact }: Navigation
               size="icon"
               className="md:hidden"
               onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? t('navigation.accessibility.closeMenu') : t('navigation.accessibility.openMenu')}
+              aria-expanded={isOpen}
+              aria-controls="mobile-navigation-menu"
+              title={isOpen ? t('navigation.accessibility.closeMenu') : t('navigation.accessibility.openMenu')}
             >
               {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </Button>
@@ -88,6 +93,9 @@ export const Navigation = memo(function Navigation({ onOpenContact }: Navigation
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
               className="md:hidden border-t border-border bg-background/95 backdrop-blur-md"
+              id="mobile-navigation-menu"
+              role="menu"
+              aria-label={t('navigation.accessibility.mobileMenu')}
             >
               <div className="px-4 py-4 space-y-3">
                 {navItems.map((item, index) => (
@@ -98,6 +106,8 @@ export const Navigation = memo(function Navigation({ onOpenContact }: Navigation
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
                     className="block w-full text-left py-2 px-3 text-foreground hover:text-primary hover:bg-primary/10 rounded-md transition-colors font-medium"
+                    aria-label={`${t('navigation.accessibility.navigateTo')} ${item.name}`}
+                    title={`${t('navigation.accessibility.goTo')} ${item.name}`}
                   >
                     {item.name}
                   </motion.button>

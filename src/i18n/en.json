@@ -7,7 +7,14 @@
     "contact": "Contact",
     "portfolio": "Portfolio",
     "switchLanguage": "Switch language",
-    "currentLanguage": "Current language: English"
+    "currentLanguage": "Current language: English",
+    "accessibility": {
+      "navigateTo": "Navigate to",
+      "goTo": "Go to section",
+      "openMenu": "Open navigation menu",
+      "closeMenu": "Close navigation menu",
+      "mobileMenu": "Mobile navigation menu"
+    }
   },
   "hero": {
     "greeting": "Hello! I'm",
@@ -30,7 +37,14 @@
     },
     "scrollIndicator": "Discover more",
     "downloadCV": "Download CV",
-    "contactMe": "Contact Me"
+    "contactMe": "Contact Me",
+    "accessibility": {
+      "scrollToExperience": "scroll to experience section",
+      "scrollToProjects": "scroll to projects section",
+      "viewExperienceSection": "View professional experience section",
+      "viewProjectsSection": "View projects section",
+      "clickToScroll": "Click to scroll to next section"
+    }
   },
   "timeline": {
     "title": "My Journey",
@@ -62,7 +76,15 @@
     "lastUpdated": "Updated",
     "error": "Error loading repositories:",
     "retry": "Retry",
-    "viewAllProjects": "View all my projects"
+    "viewAllProjects": "View all my projects",
+    "accessibility": {
+      "repository": "GitHub repository",
+      "liveDemo": "live demo",
+      "openGitHub": "Open GitHub repository for",
+      "openLiveDemo": "Open live demo for",
+      "githubProfile": "complete GitHub profile",
+      "openGithubProfile": "Open complete GitHub profile with all projects"
+    }
   },
   "contact": {
     "title": "Contact",
@@ -135,7 +157,11 @@
     "message": "Message",
     "send": "Send Message",
     "success": "Message sent successfully!",
-    "error": "Error sending message. Please try again."
+    "error": "Error sending message. Please try again.",
+    "accessibility": {
+      "openContactForm": "open contact form",
+      "openContactModal": "Open contact modal to send a message"
+    }
   },
   "footer": {
     "madeWith": "Made with ❤️ using Astro and React",

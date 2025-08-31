@@ -7,7 +7,14 @@
     "contact": "Contacto",
     "portfolio": "Portfolio",
     "switchLanguage": "Cambiar idioma",
-    "currentLanguage": "Idioma actual: Español"
+    "currentLanguage": "Idioma actual: Español",
+    "accessibility": {
+      "navigateTo": "Navegar a",
+      "goTo": "Ir a la sección",
+      "openMenu": "Abrir menú de navegación",
+      "closeMenu": "Cerrar menú de navegación",
+      "mobileMenu": "Menú de navegación móvil"
+    }
   },
   "hero": {
     "greeting": "¡Hola! Soy",
@@ -30,7 +37,14 @@
     },
     "scrollIndicator": "Descubre más",
     "downloadCV": "Descargar CV",
-    "contactMe": "Contáctame"
+    "contactMe": "Contáctame",
+    "accessibility": {
+      "scrollToExperience": "desplazarse a la sección de experiencia",
+      "scrollToProjects": "desplazarse a la sección de proyectos",
+      "viewExperienceSection": "Ver la sección de experiencia profesional",
+      "viewProjectsSection": "Ver la sección de proyectos",
+      "clickToScroll": "Hacer clic para desplazarse a la siguiente sección"
+    }
   },
   "timeline": {
     "title": "Mi Trayectoria",
@@ -62,7 +76,15 @@
     "lastUpdated": "Actualizado",
     "error": "Error al cargar los repositorios:",
     "retry": "Reintentar",
-    "viewAllProjects": "Ver todos mis proyectos"
+    "viewAllProjects": "Ver todos mis proyectos",
+    "accessibility": {
+      "repository": "repositorio en GitHub",
+      "liveDemo": "demostración en vivo",
+      "openGitHub": "Abrir repositorio de GitHub para",
+      "openLiveDemo": "Abrir demostración en vivo de",
+      "githubProfile": "perfil completo de GitHub",
+      "openGithubProfile": "Abrir perfil completo de GitHub con todos los proyectos"
+    }
   },
   "contact": {
     "title": "Contacto",
@@ -135,7 +157,11 @@
     "message": "Mensaje",
     "send": "Enviar Mensaje",
     "success": "¡Mensaje enviado exitosamente!",
-    "error": "Error al enviar el mensaje. Por favor, inténtalo de nuevo."
+    "error": "Error al enviar el mensaje. Por favor, inténtalo de nuevo.",
+    "accessibility": {
+      "openContactForm": "abrir formulario de contacto",
+      "openContactModal": "Abrir modal de contacto para enviar un mensaje"
+    }
   },
   "footer": {
     "madeWith": "Hecho con ❤️ usando Astro y React",

@@ -45,15 +45,6 @@ export interface Translations {
   };
   footer: {
     madeWith: string;
-    copyright: string;
-  };
-  meta: {
-    title: string;
-    description: string;
-    ogTitle: string;
-    ogDescription: string;
-    twitterTitle: string;
-    twitterDescription: string;
   };
   timelineData: {
     [key: string]: {
@@ -64,9 +55,6 @@ export interface Translations {
       description: string;
       achievements: string[];
     };
-  };
-  technologies: {
-    [key: string]: string;
   };
 }
 

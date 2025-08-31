@@ -22,7 +22,7 @@ export const HeroSection = memo(function HeroSection() {
   }
 
   return (
-    <section ref={ref} id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section ref={ref} id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
       {/* Animated Background */}
       <motion.div
         style={{ y }}
@@ -55,17 +55,7 @@ export const HeroSection = memo(function HeroSection() {
 
       {/* Main Content */}
       <motion.div style={{ opacity }} className="relative z-10 text-center max-w-4xl mx-auto px-4">
-        {/* Greeting Animation */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mb-6"
-        >
-          <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20">
-            {t('hero.greeting')} {t('hero.name')}
-          </span>
-        </motion.div>
+
 
         {/* Main Title */}
         <motion.h1
@@ -135,6 +125,8 @@ export const HeroSection = memo(function HeroSection() {
             size="lg"
             onClick={scrollToTimeline}
             className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 bg-primary hover:bg-primary/90 text-primary-foreground transform hover:scale-105 transition-all duration-300 hover:shadow-lg"
+            aria-label={`${t('hero.buttons.viewExperience')} - ${t('hero.accessibility.scrollToExperience')}`}
+            title={t('hero.accessibility.viewExperienceSection')}
           >
             {t('hero.buttons.viewExperience')}
           </Button>
@@ -143,6 +135,8 @@ export const HeroSection = memo(function HeroSection() {
             size="lg"
             onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
             className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 border-primary/50 hover:bg-primary/10 hover:border-primary transform hover:scale-105 transition-all duration-300 hover:shadow-lg"
+            aria-label={`${t('hero.buttons.exploreProjects')} - ${t('hero.accessibility.scrollToProjects')}`}
+            title={t('hero.accessibility.viewProjectsSection')}
           >
             {t('hero.buttons.exploreProjects')}
           </Button>
@@ -155,6 +149,16 @@ export const HeroSection = memo(function HeroSection() {
           transition={{ duration: 1, delay: 1.2 }}
           className="flex flex-col items-center cursor-pointer"
           onClick={scrollToTimeline}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault()
+              scrollToTimeline()
+            }
+          }}
+          aria-label={`${t('hero.scrollIndicator')} - ${t('hero.accessibility.scrollToExperience')}`}
+          title={t('hero.accessibility.clickToScroll')}
         >
           <span className="text-sm text-muted-foreground mb-2">{t('hero.scrollIndicator')}</span>
           <motion.div animate={{ y: [0, 10, 0] }} transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}>
