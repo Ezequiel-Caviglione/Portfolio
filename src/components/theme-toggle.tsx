@@ -16,14 +16,15 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <Button variant="ghost" size="icon" className="w-10 h-10">
-        <div className="w-4 h-4" />
+      <Button variant="ghost" size="icon" className="relative w-10 h-10 rounded-full border-2 border-border hover:border-primary transition-colors">
+        <Sun className="h-4 w-4 text-primary" />
       </Button>
     )
   }
 
   return (
     <Button
+      aria-label="theme-toggle"
       variant="ghost"
       size="icon"
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}

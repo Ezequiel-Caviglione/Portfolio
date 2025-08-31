@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useMemo, useCallback, type ReactNode } from 'react';
 import type { Language, LanguageContextType } from './types';
 import { getTranslation, defaultLanguage } from './translations';
-import { initI18nPerformance } from './init-performance';
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
@@ -14,12 +13,6 @@ interface LanguageProviderProps {
 
 export function LanguageProvider({ children, initialLanguage }: LanguageProviderProps) {
   const [language, setLanguageState] = useState<Language>(initialLanguage || defaultLanguage);
-
-  // Initialize performance monitoring
-  useEffect(() => {
-    const cleanup = initI18nPerformance();
-    return cleanup;
-  }, []);
 
   // Load language from localStorage on mount (only if no initial language is provided)
   useEffect(() => {

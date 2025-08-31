@@ -103,6 +103,8 @@ export const ContactSection = memo(function ContactSection({ onOpenModal }: Cont
               size="lg"
               onClick={onOpenModal}
               className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 text-primary-foreground transform hover:scale-105 transition-all duration-300 hover:shadow-lg"
+              aria-label={`${t('contact.cta.button')} - ${t('contact.accessibility.openContactForm')}`}
+              title={t('contact.accessibility.openContactModal')}
             >
               <Mail className="w-5 h-5 mr-2" />
               {t('contact.cta.button')}

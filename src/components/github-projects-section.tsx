@@ -1,6 +1,5 @@
 import { motion, useInView } from "framer-motion"
-import { Star, GitFork, Eye, Calendar, Globe } from "lucide-react"
-import { FaGithub } from "react-icons/fa"
+import { Star, GitFork, Eye, Calendar, Globe, Github } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -23,6 +22,24 @@ const ProjectCard = memo(function ProjectCard({ repo, index }: { repo: GitHubRep
       Vue: "#4FC08D",
       CSS: "#1572B6",
       HTML: "#e34c26",
+      SCSS: "#c6538c",
+      Sass: "#a53b70",
+      Less: "#1d365d",
+      PHP: "#4F5D95",
+      Ruby: "#701516",
+      Go: "#00ADD8",
+      Rust: "#dea584",
+      C: "#555555",
+      "C++": "#f34b7d",
+      "C#": "#239120",
+      Swift: "#fa7343",
+      Kotlin: "#A97BFF",
+      Dart: "#00B4AB",
+      Shell: "#89e051",
+      Dockerfile: "#384d54",
+      YAML: "#cb171e",
+      JSON: "#292929",
+      Markdown: "#083fa1",
     }
     return colors[language || ""] || "#6b7280"
   }
@@ -50,7 +67,7 @@ const ProjectCard = memo(function ProjectCard({ repo, index }: { repo: GitHubRep
           <div className="flex items-start justify-between">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-2">
-                <FaGithub className="w-4 h-4 md:w-5 md:h-5 text-primary flex-shrink-0" />
+                <Github className="w-4 h-4 md:w-5 md:h-5 text-primary flex-shrink-0" />
                 <h3 className="text-base md:text-lg font-bold text-foreground font-montserrat truncate">{repo.name}</h3>
               </div>
               <p className="text-xs md:text-sm text-muted-foreground line-clamp-2 font-open-sans leading-relaxed">
@@ -61,9 +78,30 @@ const ProjectCard = memo(function ProjectCard({ repo, index }: { repo: GitHubRep
         </CardHeader>
 
         <CardContent className="pt-0 p-3 md:p-6">
-          {/* Language and Topics */}
+          {/* Languages and Topics */}
           <div className="flex flex-wrap gap-1.5 md:gap-2 mb-3 md:mb-4">
-            {repo.language && (
+            {/* Show up to 5 languages */}
+            {repo.languages && repo.languages.slice(0, 5).map((lang) => (
+              <Badge
+                key={lang.name}
+                variant="outline"
+                className="text-xs"
+                style={{
+                  borderColor: getLanguageColor(lang.name),
+                  color: getLanguageColor(lang.name),
+                }}
+                title={`${lang.name}: ${lang.percentage}%`}
+              >
+                <div
+                  className="w-2 h-2 rounded-full mr-1"
+                  style={{ backgroundColor: getLanguageColor(lang.name) }}
+                />
+                {lang.name}
+                <span className="ml-1 text-xs opacity-75">{lang.percentage}%</span>
+              </Badge>
+            ))}
+            {/* Fallback to main language if languages array is empty */}
+            {(!repo.languages || repo.languages.length === 0) && repo.language && (
               <Badge
                 variant="outline"
                 className="text-xs"
@@ -79,7 +117,8 @@ const ProjectCard = memo(function ProjectCard({ repo, index }: { repo: GitHubRep
                 {repo.language}
               </Badge>
             )}
-            {repo.topics.slice(0, 2).map((topic) => (
+            {/* Show fewer topics to make room for languages */}
+            {repo.topics.slice(0, 1).map((topic) => (
               <Badge key={topic} variant="secondary" className="text-xs">
                 {topic}
               </Badge>
@@ -116,8 +155,15 @@ const ProjectCard = memo(function ProjectCard({ repo, index }: { repo: GitHubRep
               asChild
               className="flex-1 hover:bg-primary/10 hover:border-primary/50 bg-transparent transform hover:scale-105 transition-all duration-300 text-xs md:text-sm"
             >
-              <a href={repo.html_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 md:gap-2">
-                <FaGithub className="w-3 h-3 md:w-4 md:h-4" />
+              <a 
+                href={repo.html_url} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="flex items-center gap-1.5 md:gap-2"
+                aria-label={`${t('projects.viewCode')} - ${repo.name} ${t('projects.accessibility.repository')}`}
+                title={`${t('projects.accessibility.openGitHub')} ${repo.name}`}
+              >
+                <Github className="w-3 h-3 md:w-4 md:h-4" />
                 {t('projects.viewCode')}
               </a>
             </Button>
@@ -128,7 +174,14 @@ const ProjectCard = memo(function ProjectCard({ repo, index }: { repo: GitHubRep
                 asChild
                 className="flex-1 hover:bg-secondary/10 hover:border-secondary/50 bg-transparent transform hover:scale-105 transition-all duration-300 text-xs md:text-sm"
               >
-                <a href={repo.homepage} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 md:gap-2">
+                <a 
+                  href={repo.homepage} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="flex items-center gap-1.5 md:gap-2"
+                  aria-label={`${t('projects.viewProject')} - ${repo.name} ${t('projects.accessibility.liveDemo')}`}
+                  title={`${t('projects.accessibility.openLiveDemo')} ${repo.name}`}
+                >
                   <Globe className="w-3 h-3 md:w-4 md:h-4" />
                   {t('projects.viewProject')}
                 </a>
@@ -217,7 +270,13 @@ export const GitHubProjectsSection = memo(function GitHubProjectsSection() {
               </div>
               <div className="text-center p-3 md:p-4 bg-card rounded-lg border border-border">
                 <div className="text-xl md:text-2xl font-bold text-primary font-montserrat">
-                  {new Set(repos.map((repo) => repo.language).filter(Boolean)).size}
+                  {new Set(
+                    repos.flatMap((repo) => 
+                      repo.languages && repo.languages.length > 0 
+                        ? repo.languages.map(lang => lang.name)
+                        : repo.language ? [repo.language] : []
+                    )
+                  ).size}
                 </div>
                 <div className="text-xs md:text-sm text-muted-foreground">{t('projects.stats.technologies')}</div>
               </div>
@@ -280,8 +339,10 @@ export const GitHubProjectsSection = memo(function GitHubProjectsSection() {
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2"
+              aria-label={`${t('projects.viewAllProjects')} - ${t('projects.accessibility.githubProfile')}`}
+              title={t('projects.accessibility.openGithubProfile')}
             >
-              <FaGithub className="w-5 h-5" />
+              <Github className="w-5 h-5" />
               {t('projects.viewAllProjects')}
             </a>
           </Button>
