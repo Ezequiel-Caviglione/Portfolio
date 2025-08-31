@@ -4,14 +4,14 @@ import { motion, useInView } from "framer-motion"
 import { Mail, MessageCircle, MapPin } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { useRef } from "react"
+import { useRef, memo } from "react"
 import { useTranslation } from "@/i18n/useTranslation"
 
 interface ContactSectionProps {
   onOpenModal: () => void
 }
 
-export function ContactSection({ onOpenModal }: ContactSectionProps) {
+export const ContactSection = memo(function ContactSection({ onOpenModal }: ContactSectionProps) {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-200px" })
   const { t, language } = useTranslation()
@@ -112,4 +112,4 @@ export function ContactSection({ onOpenModal }: ContactSectionProps) {
       </div>
     </section>
   )
-}
+})

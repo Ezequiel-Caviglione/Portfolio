@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useLanguageContext } from './LanguageContext';
 import type { UseTranslationReturn } from './types';
 
@@ -25,7 +26,8 @@ import type { UseTranslationReturn } from './types';
 export function useTranslation(): UseTranslationReturn {
   const { language, setLanguage, t } = useLanguageContext();
 
-  return {
+  // Memoize the return object to prevent unnecessary re-renders
+  return useMemo(() => ({
     /**
      * Translation function that looks up translation keys with fallback mechanism
      * 
@@ -46,5 +48,5 @@ export function useTranslation(): UseTranslationReturn {
      * @param lang - Language to switch to ('es' | 'en')
      */
     setLanguage,
-  };
+  }), [t, language, setLanguage]);
 }

@@ -1,10 +1,10 @@
 import { motion, useScroll, useTransform } from "framer-motion"
 import { ChevronDown, Code, Palette, Zap } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { useRef } from "react"
+import { useRef, memo } from "react"
 import { useTranslation } from "@/i18n/useTranslation"
 
-export function HeroSection() {
+export const HeroSection = memo(function HeroSection() {
   const { t } = useTranslation()
   const ref = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
@@ -167,4 +167,4 @@ export function HeroSection() {
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
     </section>
   )
-}
+})

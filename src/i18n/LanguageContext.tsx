@@ -1,6 +1,7 @@
-import React, { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useMemo, useCallback, type ReactNode } from 'react';
 import type { Language, LanguageContextType } from './types';
 import { getTranslation, defaultLanguage } from './translations';
+import { initI18nPerformance } from './init-performance';
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
@@ -13,6 +14,12 @@ interface LanguageProviderProps {
 
 export function LanguageProvider({ children, initialLanguage }: LanguageProviderProps) {
   const [language, setLanguageState] = useState<Language>(initialLanguage || defaultLanguage);
+
+  // Initialize performance monitoring
+  useEffect(() => {
+    const cleanup = initI18nPerformance();
+    return cleanup;
+  }, []);
 
   // Load language from localStorage on mount (only if no initial language is provided)
   useEffect(() => {
@@ -48,7 +55,8 @@ export function LanguageProvider({ children, initialLanguage }: LanguageProvider
     }
   }, [initialLanguage]);
 
-  const setLanguage = (lang: Language) => {
+  // Memoize setLanguage to prevent unnecessary re-renders
+  const setLanguage = useCallback((lang: Language) => {
     setLanguageState(lang);
     
     // Update HTML lang attribute
@@ -63,17 +71,19 @@ export function LanguageProvider({ children, initialLanguage }: LanguageProvider
       // localStorage might not be available or quota exceeded
       console.warn('Failed to save language preference to localStorage:', error);
     }
-  };
+  }, []);
 
-  const t = (key: string, fallback?: string): string => {
+  // Memoize translation function to prevent unnecessary re-renders
+  const t = useCallback((key: string, fallback?: string): string => {
     return getTranslation(language, key, fallback);
-  };
+  }, [language]);
 
-  const contextValue: LanguageContextType = {
+  // Memoize context value to prevent unnecessary re-renders of consumers
+  const contextValue: LanguageContextType = useMemo(() => ({
     language,
     setLanguage,
     t,
-  };
+  }), [language, setLanguage, t]);
 
   return (
     <LanguageContext.Provider value={contextValue}>

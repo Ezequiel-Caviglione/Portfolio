@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, memo } from "react"
 import { ThemeProvider } from "next-themes"
 import { LanguageProvider } from "../i18n/LanguageContext"
 import { useTranslation } from "../i18n/useTranslation"
@@ -11,7 +11,7 @@ import { GitHubProjectsSection } from "./github-projects-section"
 import { ContactSection } from "./contact-section"
 import { ContactModal } from "./contact-modal"
 
-function PortfolioContent() {
+const PortfolioContent = memo(function PortfolioContent() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false)
   const { t } = useTranslation()
 
@@ -60,7 +60,7 @@ function PortfolioContent() {
       </div>
     </ThemeProvider>
   )
-}
+})
 
 export default function PortfolioApp() {
   return (

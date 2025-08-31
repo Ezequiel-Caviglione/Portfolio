@@ -5,7 +5,7 @@ import { Calendar, MapPin, ChevronDown, ChevronUp } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { useRef, useState } from "react"
+import { useRef, useState, memo } from "react"
 import { useTranslation } from "@/i18n/useTranslation"
 
 interface TimelineItem {
@@ -27,7 +27,7 @@ const timelineData: TimelineItem[] = [
   },
 ]
 
-function TimelineItemComponent({ item, index }: { item: TimelineItem; index: number }) {
+const TimelineItemComponent = memo(function TimelineItemComponent({ item, index }: { item: TimelineItem; index: number }) {
   const [isExpanded, setIsExpanded] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
@@ -169,9 +169,9 @@ function TimelineItemComponent({ item, index }: { item: TimelineItem; index: num
       </div>
     </motion.div>
   )
-}
+})
 
-export function TimelineSection() {
+export const TimelineSection = memo(function TimelineSection() {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-200px" })
   const { t } = useTranslation()
@@ -219,4 +219,4 @@ export function TimelineSection() {
       </div>
     </section>
   )
-}
+})

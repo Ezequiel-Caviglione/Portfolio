@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, memo } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { X, Send, Mail, User, MessageSquare, CheckCircle, AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -33,7 +33,7 @@ interface FormErrors {
 
 type FormStatus = "idle" | "loading" | "success" | "error"
 
-export function ContactModal({ isOpen, onClose }: ContactModalProps) {
+export const ContactModal = memo(function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -332,4 +332,4 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
       )}
     </AnimatePresence>
   )
-}
+})

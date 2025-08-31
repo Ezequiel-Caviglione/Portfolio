@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X } from "lucide-react"
-import { useState } from "react"
+import { useState, memo } from "react"
 import { ThemeToggle } from "./theme-toggle"
 import { LanguageToggle } from "./language-toggle"
 import { Button } from "@/components/ui/button"
@@ -12,7 +12,7 @@ interface NavigationProps {
   onOpenContact?: () => void
 }
 
-export function Navigation({ onOpenContact }: NavigationProps) {
+export const Navigation = memo(function Navigation({ onOpenContact }: NavigationProps) {
   const [isOpen, setIsOpen] = useState(false)
   const { t } = useTranslation()
   
@@ -109,4 +109,4 @@ export function Navigation({ onOpenContact }: NavigationProps) {
       </div>
     </motion.nav>
   )
-}
+})

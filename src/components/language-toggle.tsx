@@ -2,9 +2,10 @@
 
 import { motion } from "framer-motion"
 import { Globe } from "lucide-react"
+import { memo } from "react"
 import { useTranslation } from "@/i18n/useTranslation"
 
-export function LanguageToggle() {
+export const LanguageToggle = memo(function LanguageToggle() {
   const { language, setLanguage, t } = useTranslation()
 
   const toggleLanguage = () => {
@@ -29,4 +30,4 @@ export function LanguageToggle() {
       </div>
     </motion.button>
   )
-}
+})

@@ -6,9 +6,9 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { useGitHubRepos, type GitHubRepo } from "@/hooks/use-github-repos"
 import { useTranslation } from "@/i18n/useTranslation"
-import { useRef } from "react"
+import { useRef, memo } from "react"
 
-function ProjectCard({ repo, index }: { repo: GitHubRepo; index: number }) {
+const ProjectCard = memo(function ProjectCard({ repo, index }: { repo: GitHubRepo; index: number }) {
   const { t, language } = useTranslation()
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
@@ -139,7 +139,7 @@ function ProjectCard({ repo, index }: { repo: GitHubRepo; index: number }) {
       </Card>
     </motion.div>
   )
-}
+})
 
 function LoadingSkeleton() {
   return (
@@ -180,7 +180,7 @@ function LoadingSkeleton() {
   )
 }
 
-export function GitHubProjectsSection() {
+export const GitHubProjectsSection = memo(function GitHubProjectsSection() {
   const { t } = useTranslation()
   const { repos, loading, error, refetch } = useGitHubRepos("Ezequiel-Caviglione", 6)
   const ref = useRef<HTMLDivElement>(null)
@@ -289,4 +289,4 @@ export function GitHubProjectsSection() {
       </div>
     </section>
   )
-}
+})
