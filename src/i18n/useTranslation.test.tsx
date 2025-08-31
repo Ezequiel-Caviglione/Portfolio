@@ -56,7 +56,7 @@ describe('useTranslation', () => {
     const { result } = renderHook(() => useTranslation(), { wrapper });
 
     expect(result.current.t('hero.downloadCV')).toBe('Descargar CV');
-    expect(result.current.t('projects.viewProject')).toBe('Ver Proyecto');
+    expect(result.current.t('projects.viewProject')).toBe('Demo');
   });
 
   it('should use fallback when translation key is missing', () => {

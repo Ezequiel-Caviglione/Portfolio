@@ -138,7 +138,16 @@
     "error": "Error sending message. Please try again."
   },
   "footer": {
-    "madeWith": "Made with ❤️ using Astro and React"
+    "madeWith": "Made with ❤️ using Astro and React",
+    "copyright": "© 2025 Isaí Ezequiel García Caviglione. Made with ❤️ using Astro, React and Framer Motion."
+  },
+  "meta": {
+    "title": "Portfolio - Full Stack Developer",
+    "description": "Full Stack Developer portfolio specialized in React, Node.js and modern technologies. Creating innovative digital experiences.",
+    "ogTitle": "Portfolio - Full Stack Developer",
+    "ogDescription": "Full Stack Developer portfolio specialized in React, Node.js and modern technologies.",
+    "twitterTitle": "Portfolio - Full Stack Developer",
+    "twitterDescription": "Full Stack Developer portfolio specialized in React, Node.js and modern technologies."
   },
   "timelineData": {
     "1": {

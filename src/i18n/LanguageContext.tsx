@@ -16,21 +16,45 @@ export function LanguageProvider({ children, initialLanguage }: LanguageProvider
 
   // Load language from localStorage on mount (only if no initial language is provided)
   useEffect(() => {
-    if (initialLanguage) return; // Skip localStorage loading if initial language is provided
+    if (initialLanguage) {
+      // Update HTML lang attribute for initial language
+      if (typeof document !== 'undefined') {
+        document.documentElement.setAttribute('lang', initialLanguage);
+      }
+      return; // Skip localStorage loading if initial language is provided
+    }
     
     try {
       const savedLanguage = localStorage.getItem(STORAGE_KEY);
       if (savedLanguage && (savedLanguage === 'es' || savedLanguage === 'en')) {
         setLanguageState(savedLanguage as Language);
+        // Update HTML lang attribute
+        if (typeof document !== 'undefined') {
+          document.documentElement.setAttribute('lang', savedLanguage);
+        }
+      } else {
+        // Set default language in HTML
+        if (typeof document !== 'undefined') {
+          document.documentElement.setAttribute('lang', defaultLanguage);
+        }
       }
     } catch (error) {
       // localStorage might not be available (SSR, private browsing, etc.)
       console.warn('Failed to load language preference from localStorage:', error);
+      // Set default language in HTML
+      if (typeof document !== 'undefined') {
+        document.documentElement.setAttribute('lang', defaultLanguage);
+      }
     }
   }, [initialLanguage]);
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
+    
+    // Update HTML lang attribute
+    if (typeof document !== 'undefined') {
+      document.documentElement.setAttribute('lang', lang);
+    }
     
     // Save to localStorage with error handling
     try {

@@ -15,5 +15,5 @@ npm-debug.log*
 .env.production
 .env.example
 
-.kiro/
+# Documentation
 *.md

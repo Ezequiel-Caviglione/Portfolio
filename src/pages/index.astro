@@ -1,28 +1,35 @@
 ---
 import '../styles/global.css';
 import PortfolioApp from '../components/PortfolioApp.tsx';
+import { translations } from '../i18n/translations';
+
+// Get language from URL params or default to Spanish
+const url = new URL(Astro.request.url);
+const langParam = url.searchParams.get('lang');
+const language = (langParam === 'en' || langParam === 'es') ? langParam : 'es';
+const t = translations[language];
 ---
 
-<html lang="es">
+<html lang={language}>
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Portfolio - Desarrollador Full Stack</title>
-		<meta name="description" content="Portfolio de desarrollador Full Stack especializado en React, Node.js y tecnologías modernas. Creando experiencias digitales innovadoras." />
+		<title>{t.meta.title}</title>
+		<meta name="description" content={t.meta.description} />
 		
 		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content="https://miportfolio.com/" />
-		<meta property="og:title" content="Portfolio - Desarrollador Full Stack" />
-		<meta property="og:description" content="Portfolio de desarrollador Full Stack especializado en React, Node.js y tecnologías modernas." />
+		<meta property="og:title" content={t.meta.ogTitle} />
+		<meta property="og:description" content={t.meta.ogDescription} />
 		
 		<!-- Twitter -->
 		<meta property="twitter:card" content="summary_large_image" />
 		<meta property="twitter:url" content="https://miportfolio.com/" />
-		<meta property="twitter:title" content="Portfolio - Desarrollador Full Stack" />
-		<meta property="twitter:description" content="Portfolio de desarrollador Full Stack especializado en React, Node.js y tecnologías modernas." />
+		<meta property="twitter:title" content={t.meta.twitterTitle} />
+		<meta property="twitter:description" content={t.meta.twitterDescription} />
 		
 		<!-- Preload fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -40,6 +47,19 @@ import PortfolioApp from '../components/PortfolioApp.tsx';
 	</head>
 
 	<body>
+		<script define:vars={{ serverLanguage: language }}>
+			// Set initial language attribute based on localStorage, with server-side fallback
+			(function() {
+				try {
+					const savedLanguage = localStorage.getItem('portfolio-language');
+					const language = savedLanguage === 'en' ? 'en' : savedLanguage === 'es' ? 'es' : serverLanguage;
+					document.documentElement.setAttribute('lang', language);
+				} catch (error) {
+					// Fallback to server-side language if localStorage is not available
+					document.documentElement.setAttribute('lang', serverLanguage);
+				}
+			})();
+		</script>
 		<PortfolioApp client:load />
 	</body>
 </html>
