@@ -16,6 +16,11 @@ interface TimelineItem {
 
 const timelineData: TimelineItem[] = [
   {
+    id: "3",
+    technologies: ["Dart", "Flutter", "Riverpod", "Python"],
+    type: "work",
+  },
+  {
     id: "1",
     technologies: ["Angular", "Python", "Django", "TypeScript"],
     type: "work",

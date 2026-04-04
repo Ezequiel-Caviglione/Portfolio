@@ -180,7 +180,7 @@
       "title": "Full Stack Developer",
       "company": "Livepanel",
       "location": "Bahía Blanca, Argentina",
-      "period": "2025 - Presente",
+      "period": "2025 - 2025",
       "description": "Práctica Profesional Supervisada en Livepanel donde desarrollé tareas de frontend con Angular y backend con Python usando Django.",
       "achievements": [
         "Desarrollo de interfaces de usuario modernas con Angular.",
@@ -201,6 +201,17 @@
         "Notas destacadas en materias puramente relacionadas a software.",
         "Participación en proyectos académicos de desarrollo de software."
       ]
+    },
+    "3": {
+      "title": "Flutter + Python Developer",
+      "company": "Zapturno",
+      "location": "Bahía Blanca, Argentina",
+      "period": "2025 - Actualidad",
+      "description": "Desarrollo de una aplicación Flutter con enfoque multiplataforma, participando activamente en el diseño de la arquitectura frontend y la integración de librerías modernas para garantizar una base de código escalable y mantenible.",
+      "achievements": [
+        "Diseño e implementación de una arquitectura frontend robusta, performante y escalable desde cero.",
+        "Adopción de librerías clave como Riverpod para manejo de estado reactivo y Freezed para modelos de datos inmutables."
+      ]
     }
   },
   "technologies": {
@@ -216,6 +227,9 @@
     "C": "C",
     "SQL": "SQL",
     "Git": "Git",
-    "NextJS": "NextJS"
+    "NextJS": "NextJS",
+    "Dart": "Dart",
+    "Flutter": "Flutter",
+    "Riverpod": "Riverpod"
   }
 }
