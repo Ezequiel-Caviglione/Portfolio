@@ -62,12 +62,18 @@ const TimelineItemComponent = memo(function TimelineItemComponent({ item, index 
     location: t(`timelineData.${item.id}.location`, ""),
     period: t(`timelineData.${item.id}.period`, ""),
     description: t(`timelineData.${item.id}.description`, ""),
-    achievements: [
-      t(`timelineData.${item.id}.achievements.0`, ""),
-      t(`timelineData.${item.id}.achievements.1`, ""),
-      t(`timelineData.${item.id}.achievements.2`, ""),
-      t(`timelineData.${item.id}.achievements.3`, ""),
-    ].filter(achievement => achievement !== "")
+    achievements: (() => {
+      const result: string[] = []
+      let i = 0
+      while (true) {
+        const key = `timelineData.${item.id}.achievements.${i}`
+        const value = t(key)
+        if (value === key) break
+        result.push(value)
+        i++
+      }
+      return result
+    })()
   }
 
   return (
